@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import data from '../../utils/data';
 import IngredientCard from "../ingredient-card/ingredient-card";
 
 export default class BurgerIngredients extends React.Component {
@@ -14,9 +13,10 @@ export default class BurgerIngredients extends React.Component {
   }
 
   render() {
-    const buns = data.filter(item => item.type === 'bun');
-    const sauces = data.filter(item => item.type === 'sauce');
-    const fillings = data.filter(item => item.type === 'main');
+    const {ingredients} = this.props;
+    const buns = ingredients.filter(item => item.type === 'bun');
+    const sauces = ingredients.filter(item => item.type === 'sauce');
+    const fillings = ingredients.filter(item => item.type === 'main');
 
     return (
       <section className={`pt-10 ${styles.root}`}>

@@ -1,4 +1,9 @@
 .root {
-  border: 1px solid white;
   flex: 50% 1 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
