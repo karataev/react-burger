@@ -2,8 +2,10 @@ import React from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
+import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
-export default class BurgerIngredients extends React.Component {
+class BurgerIngredients extends React.Component {
   state = {
     currentTab: 'buns',
   }
@@ -60,3 +62,9 @@ export default class BurgerIngredients extends React.Component {
     )
   }
 }
+
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientType),
+}
+
+export default BurgerIngredients;

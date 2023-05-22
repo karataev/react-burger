@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './ingredient-card.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ingredientType} from "../../utils/types";
 
-export default class IngredientCard extends React.Component {
+class IngredientCard extends React.Component {
 
   render() {
     const {name, price, image} = this.props.item;
@@ -23,3 +24,9 @@ export default class IngredientCard extends React.Component {
     )
   }
 }
+
+IngredientCard.propTypes = {
+  item: ingredientType,
+}
+
+export default IngredientCard;

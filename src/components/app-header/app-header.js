@@ -12,7 +12,7 @@ class NavItem extends React.Component {
   }
 }
 
-export default class AppHeader extends React.Component {
+class AppHeader extends React.Component {
 
   render() {
     return (
@@ -40,3 +40,5 @@ export default class AppHeader extends React.Component {
     )
   }
 }
+
+export default AppHeader;

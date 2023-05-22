@@ -2,8 +2,10 @@ import React from "react";
 import styles from './burger-constructor.module.css';
 import ConstructorCard from "../constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/types";
 
-export default class BurgerConstructor extends React.Component {
+class BurgerConstructor extends React.Component {
 
   render() {
     const {ingredients} = this.props;
@@ -30,3 +32,9 @@ export default class BurgerConstructor extends React.Component {
     )
   }
 }
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientType),
+}
+
+export default BurgerConstructor;
