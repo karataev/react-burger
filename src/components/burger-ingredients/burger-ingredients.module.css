@@ -1,4 +1,18 @@
 .root {
-  border: 1px solid white;
+  /*border: 1px solid white;*/
+  flex: 50% 1 1;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab {
   flex-grow: 1;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
