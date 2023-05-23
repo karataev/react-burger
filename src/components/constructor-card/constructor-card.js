@@ -28,7 +28,7 @@ class ConstructorCard extends React.Component {
 
 ConstructorCard.propTypes = {
   type: PropTypes.string,
-  item: ingredientType,
+  item: ingredientType.isRequired,
 }
 
 export default ConstructorCard;
