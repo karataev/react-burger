@@ -8,13 +8,13 @@ import {ingredientType} from "../../utils/types";
 class BurgerConstructor extends React.Component {
 
   render() {
-    const {ingredients} = this.props;
+    const {items} = this.props;
     return (
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`}>
-        {ingredients.map((item, index) => {
+        {items.map((item, index) => {
           let type;
           if (index === 0) type = 'top';
-          else if (index === ingredients.length - 1) type = 'bottom';
+          else if (index === items.length - 1) type = 'bottom';
 
           return (
             <ConstructorCard key={item._id} item={item} type={type} />
@@ -34,7 +34,7 @@ class BurgerConstructor extends React.Component {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType),
+  items: PropTypes.arrayOf(ingredientType),
 }
 
 export default BurgerConstructor;

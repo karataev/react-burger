@@ -16,6 +16,7 @@ class ConstructorCard extends React.Component {
           thumbnail={item.image_mobile}
           price={item.price}
           extraClass="ml-2"
+          isLocked={item.isLocked}
         />
       </div>
     )

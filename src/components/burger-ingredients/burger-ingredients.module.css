@@ -11,6 +11,9 @@
   flex-grow: 1;
 }
 
+.scrollable {
+}
+
 .cards {
   display: flex;
   justify-content: space-around;

@@ -34,30 +34,32 @@ class BurgerIngredients extends React.Component {
             Начинки
           </Tab>
         </div>
-        <h2 className="text text_type_main-medium mt-10">Булки</h2>
-        <section className={styles.cards}>
-          {buns.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
-        <h2 className="text text_type_main-medium mt-10">Соусы</h2>
-        <section className={styles.cards}>
-          {sauces.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
-        <h2 className="text text_type_main-medium mt-10">Начинки</h2>
-        <section className={styles.cards}>
-          {fillings.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
+        <div className={styles.scrollable}>
+          <h2 className="text text_type_main-medium mt-10">Булки</h2>
+          <section className={styles.cards}>
+            {buns.map(item => {
+              return (
+                <IngredientCard item={item} key={item._id} />
+              )
+            })}
+          </section>
+          <h2 className="text text_type_main-medium mt-10">Соусы</h2>
+          <section className={styles.cards}>
+            {sauces.map(item => {
+              return (
+                <IngredientCard item={item} key={item._id} />
+              )
+            })}
+          </section>
+          <h2 className="text text_type_main-medium mt-10">Начинки</h2>
+          <section className={styles.cards}>
+            {fillings.map(item => {
+              return (
+                <IngredientCard item={item} key={item._id} />
+              )
+            })}
+          </section>
+        </div>
       </section>
     )
   }
