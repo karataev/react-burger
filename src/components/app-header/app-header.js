@@ -5,9 +5,10 @@ import styles from './app-header.module.css';
 class NavItem extends React.Component {
   render() {
     return (
-      <div className={`pl-5 pt-4 pr-5 pb-4 ${styles.nav_item}`}>
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      <a href="#" className={`pl-5 pt-4 pr-5 pb-4 ${styles.nav_item}`}>
         {this.props.children}
-      </div>
+      </a>
     )
   }
 }
