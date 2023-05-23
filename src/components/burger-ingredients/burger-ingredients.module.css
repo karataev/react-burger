@@ -12,6 +12,8 @@
 }
 
 .scrollable {
+  height: calc(100vh - 88px - 156px);
+  overflow-y: auto;
 }
 
 .cards {
