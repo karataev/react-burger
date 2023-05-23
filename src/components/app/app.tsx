@@ -10,7 +10,11 @@ function App() {
     {...ingredients[0], isLocked: true},
     ingredients[2],
     ingredients[3],
-    {...ingredients[14], isLocked: true},
+    {
+      ...ingredients[0],
+      _id: ingredients[0]._id + '_bottom',
+      isLocked: true
+    },
   ]
   return (
     <div className={styles.root}>

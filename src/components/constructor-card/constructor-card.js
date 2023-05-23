@@ -7,9 +7,12 @@ import {ingredientType} from "../../utils/types";
 class ConstructorCard extends React.Component {
   render() {
     const {item, type} = this.props;
+    const isDragAvailable = type === undefined;
     return (
       <div key={item._id} className={`mb-4 ${styles.root}`}>
-        <DragIcon type="primary" />
+        <div className={styles.left}>
+          {isDragAvailable && <DragIcon type="primary" />}
+        </div>
         <ConstructorElement
           type={type}
           text={item.name}
