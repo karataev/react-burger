@@ -1,6 +1,6 @@
 import styles from './ingredient-card.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientType} from "../../utils/types";
+import {ingredientType} from "../../../utils/types";
 
 function IngredientCard({item}) {
   const {name, price, image} = item;

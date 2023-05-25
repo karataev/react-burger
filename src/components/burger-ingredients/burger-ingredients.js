@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "../ingredient-card/ingredient-card";
 import PropTypes from "prop-types";
 import {ingredientType} from "../../utils/types";
+import IngredientGroup from "./ingredient-group/ingredient-group";
 
 function BurgerIngredients({ingredients}) {
   const [currentTab, setCurrentTab] = useState('buns');
@@ -27,30 +27,9 @@ function BurgerIngredients({ingredients}) {
         </Tab>
       </div>
       <div className={styles.scrollable}>
-        <h2 className="text text_type_main-medium mt-10">Булки</h2>
-        <section className={styles.cards}>
-          {buns.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
-        <h2 className="text text_type_main-medium mt-10">Соусы</h2>
-        <section className={styles.cards}>
-          {sauces.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
-        <h2 className="text text_type_main-medium mt-10">Начинки</h2>
-        <section className={styles.cards}>
-          {fillings.map(item => {
-            return (
-              <IngredientCard item={item} key={item._id} />
-            )
-          })}
-        </section>
+        <IngredientGroup title="Булки" items={buns} />
+        <IngredientGroup title="Соусы" items={sauces} />
+        <IngredientGroup title="Начинки" items={fillings} />
       </div>
     </section>
   )}

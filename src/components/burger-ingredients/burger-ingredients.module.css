@@ -1,5 +1,4 @@
 .root {
-  /*border: 1px solid white;*/
   flex: 50% 1 1;
 }
 
@@ -14,10 +13,4 @@
 .scrollable {
   height: calc(100vh - 88px - 156px);
   overflow-y: auto;
-}
-
-.cards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
 }
