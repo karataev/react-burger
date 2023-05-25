@@ -1,12 +1,17 @@
 import styles from './ingredient-card.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
+import PropTypes from "prop-types";
 
-function IngredientCard({item}) {
+function IngredientCard({item, onIngredientClick}) {
   const {name, price, image} = item;
 
+  function handleClick() {
+    onIngredientClick(item);
+  }
+
   return (
-    <div className={`mt-6 ${styles.root}`}>
+    <div className={`mt-6 ${styles.root}`} onClick={handleClick}>
       <div>
         <img src={image} alt={name} className={styles.img} />
       </div>
@@ -23,6 +28,7 @@ function IngredientCard({item}) {
 
 IngredientCard.propTypes = {
   item: ingredientType.isRequired,
+  onIngredientClick: PropTypes.func.isRequired,
 }
 
 export default IngredientCard;
