@@ -7,14 +7,16 @@ import DetailItem from "./detail-item";
 function IngredientDetails({ingredient, onClose}) {
   return (
     <Modal title="Детали ингредиента" onClose={onClose}>
-      <img src={ingredient.image} alt={ingredient.name} />
-      <p>{ingredient.name}</p>
-      <div className={styles.details}>
-        <DetailItem title="Калории,ккал" value={ingredient.calories} />
-        <DetailItem title="Белки, г" value={ingredient.proteins} />
-        <DetailItem title="Жиры, г" value={ingredient.fat} />
-        <DetailItem title="Углеводы, г" value={ingredient.carbohydrates} />
-      </div>
+      <section className={styles.content}>
+        <img src={ingredient.image_large} alt={ingredient.name} />
+        <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
+        <div className={styles.details}>
+          <DetailItem title="Калории,ккал" value={ingredient.calories} />
+          <DetailItem title="Белки, г" value={ingredient.proteins} />
+          <DetailItem title="Жиры, г" value={ingredient.fat} />
+          <DetailItem title="Углеводы, г" value={ingredient.carbohydrates} />
+        </div>
+      </section>
     </Modal>
   )
 }
