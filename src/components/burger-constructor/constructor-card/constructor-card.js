@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import {ingredientType} from "../../../utils/types";
 
 function ConstructorCard({item, type}) {
-  const isDragAvailable = type === undefined;
+  const isTop = type === 'top';
+  const isBottom = type === 'bottom';
+  const isDragAvailable = !isTop && !isBottom;
   return (
     <div key={item._id} className={`mb-4 ${styles.root}`}>
       <div className={styles.left}>
@@ -16,7 +18,7 @@ function ConstructorCard({item, type}) {
         thumbnail={item.image_mobile}
         price={item.price}
         extraClass="ml-2"
-        isLocked={item.isLocked}
+        isLocked={isTop || isBottom}
       />
     </div>
   )
