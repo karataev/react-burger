@@ -1,5 +1,5 @@
 import styles from './burger-constructor.module.css';
-import ConstructorCard from "../constructor-card/constructor-card";
+import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientType} from "../../utils/types";

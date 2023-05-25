@@ -1,7 +1,7 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './constructor-card.module.css';
 import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
+import {ingredientType} from "../../../utils/types";
 
 function ConstructorCard({item, type}) {
   const isDragAvailable = type === undefined;
