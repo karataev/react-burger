@@ -43,7 +43,9 @@ function BurgerIngredients({ingredients}) {
           <IngredientGroup title="Начинки" items={fillings} onIngredientClick={onIngredientClick} />
         </div>
       </section>
-      {selectedIngredient && <IngredientDetails ingredient={selectedIngredient} onClose={onModalClose} />}
+      {selectedIngredient && (
+        <IngredientDetails ingredient={selectedIngredient} onClose={onModalClose} />
+      )}
     </>
   )}
 

@@ -1,17 +1,13 @@
-import Modal from "../modal/modal";
+import Modal from "../../modal/modal";
 import PropTypes from "prop-types";
-import doneImg from '../../images/done.png';
+import doneImg from '../../../images/done.png';
 import styles from './order-details.module.css';
-import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function OrderDetails({onClose}) {
+function OrderDetails({onClose, orderNumber}) {
   return (
-    <Modal onClose={onClose} title="hello">
-      <div className={styles.close_wrap}>
-        <CloseIcon type="primary" onClick={onClose} />
-      </div>
-      <section className={`${styles.content} pt-30 pb-30`}>
-        <h1 className={`text text_type_digits-large ${styles.title}`}>034536</h1>
+    <Modal onClose={onClose}>
+      <section className={`${styles.content} pt-15 pb-15`}>
+        <h1 className={`text text_type_digits-large ${styles.title}`}>{orderNumber}</h1>
         <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
         <p className="mt-15">
           <img src={doneImg} alt="OK" />
@@ -26,6 +22,7 @@ function OrderDetails({onClose}) {
 }
 
 OrderDetails.propTypes = {
+  orderNumber: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 }
 

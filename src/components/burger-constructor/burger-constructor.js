@@ -4,7 +4,7 @@ import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {ingredientType} from "../../utils/types";
-import OrderDetails from "../order-details/order-details";
+import OrderDetails from "./order-details/order-details";
 
 function BurgerConstructor({items}) {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
@@ -43,7 +43,9 @@ function BurgerConstructor({items}) {
           >Оформить заказ</Button>
         </footer>
       </div>
-      {isOrderModalOpen && <OrderDetails onClose={onModalClose} />}
+      {isOrderModalOpen && (
+        <OrderDetails orderNumber={'034536'} onClose={onModalClose} />
+      )}
     </>
   )
 }

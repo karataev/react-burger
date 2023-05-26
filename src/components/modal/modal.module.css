@@ -4,7 +4,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  border: 5px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,5 +18,11 @@
   border: 1px solid rgba(76, 76, 255, 0.2);
   box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
+  padding: 40px 40px 60px;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

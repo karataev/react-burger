@@ -3,8 +3,9 @@ import styles from './modal.module.css';
 import PropTypes from "prop-types";
 import {useEffect} from "react";
 import ModalOverlay from "./modal-overlay/modal-overlay";
+import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Modal({onClose, children}) {
+function Modal({onClose, children, title = ''}) {
 
   useEffect(() => {
     function onKeyDown(e) {
@@ -21,6 +22,10 @@ function Modal({onClose, children}) {
   const element = (
     <div className={styles.root}>
       <section className={styles.inner}>
+        <header className={styles.header}>
+          <h1 className="text text_type_main-large">{title}</h1>
+          <CloseIcon type="primary" onClick={onClose} />
+        </header>
         {children}
       </section>
       <ModalOverlay onClick={onClose} />
@@ -31,6 +36,7 @@ function Modal({onClose, children}) {
 }
 
 Modal.propTypes = {
+  title: PropTypes.string,
   onClose: PropTypes.func.isRequired,
 }
 
