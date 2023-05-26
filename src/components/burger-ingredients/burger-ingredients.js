@@ -37,7 +37,7 @@ function BurgerIngredients({ingredients}) {
             Начинки
           </Tab>
         </div>
-        <div className={styles.scrollable}>
+        <div className={`${styles.scrollable} custom-scroll`}>
           <IngredientGroup title="Булки" items={buns} onIngredientClick={onIngredientClick} />
           <IngredientGroup title="Соусы" items={sauces} onIngredientClick={onIngredientClick} />
           <IngredientGroup title="Начинки" items={fillings} onIngredientClick={onIngredientClick} />
