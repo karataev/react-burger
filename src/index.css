@@ -19,3 +19,7 @@ code {
 p {
   margin: 0;
 }
+
+svg {
+  display: block;
+}

@@ -3,6 +3,7 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from './app.module.css';
+import Loader from "../loader/loader";
 
 const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -53,7 +54,7 @@ function App() {
 
   return (
     <div className={styles.root}>
-      {state.isLoading ? <div>Загрузка...</div> : (
+      {state.isLoading ? <Loader /> : (
         <>
           {state.hasError ? <div>Произошла ошибка</div> : (
             <>
