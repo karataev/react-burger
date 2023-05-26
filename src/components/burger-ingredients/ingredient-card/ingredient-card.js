@@ -1,5 +1,5 @@
 import styles from './ingredient-card.module.css';
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
 import PropTypes from "prop-types";
 
@@ -12,6 +12,7 @@ function IngredientCard({item, onIngredientClick}) {
 
   return (
     <div className={`mt-6 ${styles.root}`} onClick={handleClick}>
+      <Counter count={1} size="default" />
       <div>
         <img src={image} alt={name} className={styles.img} />
       </div>
