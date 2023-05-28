@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
@@ -32,4 +33,4 @@ IngredientCard.propTypes = {
   onIngredientClick: PropTypes.func.isRequired,
 }
 
-export default IngredientCard;
+export default React.memo(IngredientCard);

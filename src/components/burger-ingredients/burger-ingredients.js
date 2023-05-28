@@ -14,10 +14,6 @@ function BurgerIngredients({ingredients}) {
   const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
   const fillings = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
-  function onIngredientClick(item) {
-    setSelectedIngredient(item);
-  }
-
   function onModalClose() {
     setSelectedIngredient(null);
   }
@@ -38,9 +34,9 @@ function BurgerIngredients({ingredients}) {
           </Tab>
         </div>
         <div className={`${styles.scrollable} custom-scroll`}>
-          <IngredientGroup title="Булки" items={buns} onIngredientClick={onIngredientClick} />
-          <IngredientGroup title="Соусы" items={sauces} onIngredientClick={onIngredientClick} />
-          <IngredientGroup title="Начинки" items={fillings} onIngredientClick={onIngredientClick} />
+          <IngredientGroup title="Булки" items={buns} onIngredientClick={setSelectedIngredient} />
+          <IngredientGroup title="Соусы" items={sauces} onIngredientClick={setSelectedIngredient} />
+          <IngredientGroup title="Начинки" items={fillings} onIngredientClick={setSelectedIngredient} />
         </div>
       </section>
       {selectedIngredient && (

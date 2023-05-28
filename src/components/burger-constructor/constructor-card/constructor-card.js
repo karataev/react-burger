@@ -1,3 +1,4 @@
+import React from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './constructor-card.module.css';
 import PropTypes from "prop-types";
@@ -29,4 +30,4 @@ ConstructorCard.propTypes = {
   item: ingredientType.isRequired,
 }
 
-export default ConstructorCard;
+export default React.memo(ConstructorCard);
