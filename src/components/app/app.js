@@ -4,8 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from './app.module.css';
 import Loader from "../loader/loader";
-
-const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import {fetchIngredientsApi} from "../../api/burger-api";
 
 function App() {
   const [state, setState] = useState({
@@ -17,8 +16,7 @@ function App() {
 
   useEffect(() => {
     function fetchIngredients() {
-      fetch(INGREDIENTS_URL)
-        .then(res => res.json())
+      fetchIngredientsApi()
         .then(res => {
           const ingredients = res.data;
           setState({
