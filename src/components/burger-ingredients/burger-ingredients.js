@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
@@ -10,9 +10,9 @@ function BurgerIngredients({ingredients}) {
   const [currentTab, setCurrentTab] = useState('buns');
   const [selectedIngredient, setSelectedIngredient] = useState(null);
 
-  const buns = ingredients.filter(item => item.type === 'bun');
-  const sauces = ingredients.filter(item => item.type === 'sauce');
-  const fillings = ingredients.filter(item => item.type === 'main');
+  const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
+  const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
+  const fillings = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
   function onIngredientClick(item) {
     setSelectedIngredient(item);
