@@ -1,0 +1,18 @@
+.root {
+  text-align: center;
+  position: relative;
+}
+
+.img {
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.name {
+  min-height: 48px;
+}

@@ -1,0 +1,14 @@
+.root {
+  display: inline-block;
+  animation:spin 1s linear infinite;
+}
+
+.root svg {
+  display: block;
+}
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}

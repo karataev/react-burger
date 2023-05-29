@@ -1,0 +1,16 @@
+.root {
+  flex: 50% 1 1;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab {
+  flex-grow: 1;
+}
+
+.scrollable {
+  height: calc(100vh - 88px - 156px);
+  overflow-y: auto;
+}

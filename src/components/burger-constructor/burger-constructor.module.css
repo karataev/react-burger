@@ -1,0 +1,9 @@
+.root {
+  flex: 50% 1 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
