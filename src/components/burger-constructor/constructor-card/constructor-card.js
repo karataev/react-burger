@@ -8,6 +8,13 @@ function ConstructorCard({item, type}) {
   const isTop = type === 'top';
   const isBottom = type === 'bottom';
   const isDragAvailable = !isTop && !isBottom;
+
+  function title() {
+    if (isTop) return `${item.name} (верх)`;
+    if (isBottom) return `${item.name} (низ)`;
+    return item.name;
+  }
+
   return (
     <div key={item._id} className={`mb-4 ${styles.root}`}>
       <div className={styles.left}>
@@ -15,7 +22,7 @@ function ConstructorCard({item, type}) {
       </div>
       <ConstructorElement
         type={type}
-        text={item.name}
+        text={title()}
         thumbnail={item.image_mobile}
         price={item.price}
         extraClass="ml-2"

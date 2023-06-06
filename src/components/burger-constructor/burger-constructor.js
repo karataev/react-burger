@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useMemo, useState} from "react";
 import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -17,6 +17,8 @@ function BurgerConstructor() {
     setOrderModalOpen(false);
   }
 
+  const totalPrice = useMemo(() => items.reduce((acc, item) => acc + item.price, 0), [items]);
+
   return (
     <>
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`}>
@@ -32,7 +34,7 @@ function BurgerConstructor() {
 
         <footer className={`mt-10 ${styles.footer}`}>
           <div className="mr-10">
-            <span className="text text_type_digits-medium mr-2">610</span>
+            <span className="text text_type_digits-medium mr-2">{totalPrice}</span>
             <CurrencyIcon type="primary" />
           </div>
           <Button
