@@ -1,13 +1,13 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
 import OrderDetails from "./order-details/order-details";
+import {ConstructorContext} from "../../services/appContext";
 
-function BurgerConstructor({items}) {
+function BurgerConstructor() {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
+  const {items} = useContext(ConstructorContext);
 
   function onModalOpen() {
     setOrderModalOpen(true);
@@ -48,10 +48,6 @@ function BurgerConstructor({items}) {
       )}
     </>
   )
-}
-
-BurgerConstructor.propTypes = {
-  items: PropTypes.arrayOf(ingredientType).isRequired,
 }
 
 export default BurgerConstructor;

@@ -5,6 +5,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from './app.module.css';
 import Loader from "../loader/loader";
 import {fetchIngredientsApi} from "../../api/burger-api";
+import {ConstructorContext} from "../../services/appContext";
 
 function App() {
   const [state, setState] = useState({
@@ -13,6 +14,7 @@ function App() {
     ingredients: [],
     constructorItems: [],
   })
+  const [constructorItems, setConstructorItems] = useState([]);
 
   useEffect(() => {
     function fetchIngredients() {
@@ -23,16 +25,16 @@ function App() {
             isLoading: false,
             hasError: false,
             ingredients,
-            constructorItems: [
-              ingredients[0],
-              ingredients[2],
-              ingredients[3],
-              {
-                ...ingredients[0],
-                _id: ingredients[0]._id + '_bottom',
-              },
-            ]
-          })
+          });
+          setConstructorItems([
+            ingredients[0],
+            ingredients[2],
+            ingredients[3],
+            {
+              ...ingredients[0],
+              _id: ingredients[0]._id + '_bottom',
+            },
+          ]);
         })
         .catch(() => {
           setState(s => ({
@@ -59,7 +61,9 @@ function App() {
               <AppHeader />
               <main className={styles.main}>
                 <BurgerIngredients ingredients={state.ingredients} />
-                <BurgerConstructor items={state.constructorItems} />
+                <ConstructorContext.Provider value={{items: constructorItems}}>
+                  <BurgerConstructor />
+                </ConstructorContext.Provider>
               </main>
             </>
           )}
