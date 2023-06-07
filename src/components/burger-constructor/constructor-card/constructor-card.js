@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './constructor-card.module.css';
 import PropTypes from "prop-types";
@@ -9,11 +9,11 @@ function ConstructorCard({item, type}) {
   const isBottom = type === 'bottom';
   const isDragAvailable = !isTop && !isBottom;
 
-  function title() {
+  const title = useMemo(() => {
     if (isTop) return `${item.name} (верх)`;
     if (isBottom) return `${item.name} (низ)`;
     return item.name;
-  }
+  }, [item, isTop, isBottom]);
 
   return (
     <div key={item._id} className={`mb-4 ${styles.root}`}>
