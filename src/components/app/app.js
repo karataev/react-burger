@@ -6,6 +6,7 @@ import styles from './app.module.css';
 import Loader from "../loader/loader";
 import {fetchIngredientsApi} from "../../api/burger-api";
 import {ConstructorContext} from "../../services/appContext";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [state, setState] = useState({
@@ -17,6 +18,12 @@ function App() {
   const [constructorItems, setConstructorItems] = useState([]);
 
   useEffect(() => {
+    function addId(item) {
+      return {
+        ...item,
+        id: uuidv4(),
+      }
+    }
     function fetchIngredients() {
       fetchIngredientsApi()
         .then(res => {
@@ -27,13 +34,10 @@ function App() {
             ingredients,
           });
           setConstructorItems([
-            ingredients[0],
-            ingredients[2],
-            ingredients[3],
-            {
-              ...ingredients[0],
-              _id: ingredients[0]._id + '_bottom',
-            },
+            addId(ingredients[0]),
+            addId(ingredients[2]),
+            addId(ingredients[3]),
+            addId(ingredients[0]),
           ]);
         })
         .catch(() => {

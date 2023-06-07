@@ -28,7 +28,7 @@ function BurgerConstructor() {
           else if (index === items.length - 1) type = 'bottom';
 
           return (
-            <ConstructorCard key={item._id} item={item} type={type} />
+            <ConstructorCard key={item.id} item={item} type={type} />
           )
         })}
 
@@ -46,7 +46,7 @@ function BurgerConstructor() {
         </footer>
       </div>
       {isOrderModalOpen && (
-        <OrderDetails orderNumber={'034536'} onClose={onModalClose} />
+        <OrderDetails onClose={onModalClose} />
       )}
     </>
   )
