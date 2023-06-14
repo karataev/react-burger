@@ -22,7 +22,7 @@ function ConstructorCard({item, type}) {
       </div>
       <ConstructorElement
         type={type}
-        text={title()}
+        text={title}
         thumbnail={item.image_mobile}
         price={item.price}
         extraClass="ml-2"

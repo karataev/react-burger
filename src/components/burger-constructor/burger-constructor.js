@@ -1,13 +1,13 @@
-import {useContext, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
-import {ConstructorContext} from "../../services/appContext";
+import {useSelector} from "react-redux";
 
 function BurgerConstructor() {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
-  const {items} = useContext(ConstructorContext);
+  const cartItems = useSelector(store => store.cartItems);
 
   function onModalOpen() {
     setOrderModalOpen(true);
@@ -17,15 +17,15 @@ function BurgerConstructor() {
     setOrderModalOpen(false);
   }
 
-  const totalPrice = useMemo(() => items.reduce((acc, item) => acc + item.price, 0), [items]);
+  const totalPrice = useMemo(() => cartItems.reduce((acc, item) => acc + item.price, 0), [cartItems]);
 
   return (
     <>
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`}>
-        {items.map((item, index) => {
+        {cartItems.map((item, index) => {
           let type;
           if (index === 0) type = 'top';
-          else if (index === items.length - 1) type = 'bottom';
+          else if (index === cartItems.length - 1) type = 'bottom';
 
           return (
             <ConstructorCard key={item.id} item={item} type={type} />

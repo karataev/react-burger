@@ -2,23 +2,23 @@ import Modal from "../../modal/modal";
 import PropTypes from "prop-types";
 import doneImg from '../../../images/done.png';
 import styles from './order-details.module.css';
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {createOrderApi} from "../../../api/burger-api";
 import Loader from "../../loader/loader";
-import {ConstructorContext} from "../../../services/appContext";
+import {useSelector} from "react-redux";
 
 function OrderDetails({onClose}) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [orderNumber, setOrderNumber] = useState(null);
-  const {items} = useContext(ConstructorContext);
+  const cartItems = useSelector(store => store.cartItems);
 
   useEffect(() => {
     async function createOrder() {
       setIsLoading(true);
       setErrorMessage('');
       try {
-        const ids = items.map(item => item._id);
+        const ids = cartItems.map(item => item._id);
         const result = await createOrderApi(ids);
         setOrderNumber(result.order.number);
       } catch (e) {
@@ -28,7 +28,7 @@ function OrderDetails({onClose}) {
     }
 
     createOrder();
-  }, [items]);
+  }, [cartItems]);
 
   return (
     <Modal onClose={onClose}>
