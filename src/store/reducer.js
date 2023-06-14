@@ -4,9 +4,10 @@ import {
   CART_ITEM_REMOVE,
   GET_INGREDIENTS_FAIL,
   GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS
+  GET_INGREDIENTS_SUCCESS, SET_CURRENT_TAB
 } from "./actions";
 import {v4 as uuidv4} from "uuid";
+import {GROUP_BUNS} from "../utils/constants";
 
 const initialState = {
   ingredients: [],
@@ -14,6 +15,7 @@ const initialState = {
   ingredientsError: false,
   cartItems: [],
   cartBun: null,
+  currentTab: GROUP_BUNS,
 }
 
 function addId(item) {
@@ -64,6 +66,12 @@ export function reducer(state = initialState, action) {
     return {
       ...state,
       cartItems: state.cartItems.filter(item => item.id !== action.id),
+    }
+  }
+  case SET_CURRENT_TAB: {
+    return {
+      ...state,
+      currentTab: action.tab,
     }
   }
   default: {

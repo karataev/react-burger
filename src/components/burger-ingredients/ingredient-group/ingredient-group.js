@@ -2,11 +2,27 @@ import styles from "./ingredient-group.module.css";
 import PropTypes from "prop-types";
 import {ingredientType} from "../../../utils/types";
 import IngredientCard from "../ingredient-card/ingredient-card";
+import {useSelector} from "react-redux";
+import {useEffect, useMemo, useRef} from "react";
+import {GROUP_BUNS, GROUP_SAUCES} from "../../../utils/constants";
 
-function IngredientGroup({items, title, onIngredientClick}) {
+function IngredientGroup({items, type, onIngredientClick}) {
+  const titleRef = useRef();
+  const currentTab = useSelector(store => store.currentTab);
+
+  const title = useMemo(() => {
+    if (type === GROUP_BUNS) return 'Булки';
+    if (type === GROUP_SAUCES) return 'Соусы';
+    return 'Начинки';
+  }, [type])
+
+  useEffect(() => {
+    if (currentTab === type && titleRef.current) titleRef.current.scrollIntoView();
+  }, [currentTab, type]);
+
   return (
     <>
-      <h2 className="text text_type_main-medium mt-10">{title}</h2>
+      <h2 ref={titleRef} className="text text_type_main-medium pt-10">{title}</h2>
       <ul className={styles.cards}>
         {items.map(item => {
           return (
@@ -21,7 +37,7 @@ function IngredientGroup({items, title, onIngredientClick}) {
 }
 
 IngredientGroup.propTypes = {
-  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(ingredientType).isRequired,
   onIngredientClick: PropTypes.func.isRequired,
 }
