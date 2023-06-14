@@ -12,13 +12,15 @@ function OrderDetails({onClose}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [orderNumber, setOrderNumber] = useState(null);
   const cartItems = useSelector(store => store.cartItems);
+  const cartBun = useSelector(store => store.cartBun);
 
   useEffect(() => {
     async function createOrder() {
       setIsLoading(true);
       setErrorMessage('');
       try {
-        const ids = cartItems.map(item => item._id);
+        const itemIds = cartItems.map(item => item._id);
+        const ids = [cartBun._id, ...itemIds, cartBun._id];
         const result = await createOrderApi(ids);
         setOrderNumber(result.order.number);
       } catch (e) {
@@ -28,7 +30,7 @@ function OrderDetails({onClose}) {
     }
 
     createOrder();
-  }, [cartItems]);
+  }, [cartItems, cartBun]);
 
   return (
     <Modal onClose={onClose}>

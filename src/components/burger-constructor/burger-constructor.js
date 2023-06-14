@@ -43,6 +43,7 @@ function BurgerConstructor() {
             htmlType="button"
             size="large"
             onClick={onModalOpen}
+            disabled={!cartBun}
           >Оформить заказ</Button>
         </footer>
       </div>
