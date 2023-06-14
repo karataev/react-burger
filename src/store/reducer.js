@@ -1,4 +1,5 @@
 import {
+  CART_BUN_SET,
   CART_ITEM_ADD,
   CART_ITEM_REMOVE,
   GET_INGREDIENTS_FAIL,
@@ -12,6 +13,7 @@ const initialState = {
   ingredientsLoading: false,
   ingredientsError: false,
   cartItems: [],
+  cartBun: null,
 }
 
 function addId(item) {
@@ -34,12 +36,6 @@ export function reducer(state = initialState, action) {
       ...state,
       ingredientsLoading: false,
       ingredients: action.ingredients,
-      cartItems: [
-        addId(action.ingredients[0]),
-        addId(action.ingredients[2]),
-        addId(action.ingredients[3]),
-        addId(action.ingredients[0]),
-      ]
     }
   }
   case GET_INGREDIENTS_FAIL: {
@@ -47,6 +43,12 @@ export function reducer(state = initialState, action) {
       ...state,
       ingredientsLoading: false,
       ingredientsError: true,
+    }
+  }
+  case CART_BUN_SET: {
+    return {
+      ...state,
+      cartBun: action.bun,
     }
   }
   case CART_ITEM_ADD: {

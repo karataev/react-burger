@@ -4,7 +4,7 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {ingredientType} from "../../../utils/types";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
-import {CART_ITEM_ADD} from "../../../store/actions";
+import {CART_BUN_SET, CART_ITEM_ADD} from "../../../store/actions";
 
 function IngredientCard({item, onIngredientClick}) {
   const {name, price, image} = item;
@@ -13,7 +13,11 @@ function IngredientCard({item, onIngredientClick}) {
 
   function handleClick() {
     onIngredientClick(item);
-    dispatch({type: CART_ITEM_ADD, item});
+    if (item.type === 'bun') {
+      dispatch({type: CART_BUN_SET, bun: item});
+    } else {
+      dispatch({type: CART_ITEM_ADD, item});
+    }
   }
 
   return (

@@ -4,10 +4,12 @@ import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
 import {useSelector} from "react-redux";
+import ConstructorBun from "./constructor-card/constructor-bun";
 
 function BurgerConstructor() {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
   const cartItems = useSelector(store => store.cartItems);
+  const cartBun = useSelector(store => store.cartBun);
 
   function onModalOpen() {
     setOrderModalOpen(true);
@@ -17,20 +19,19 @@ function BurgerConstructor() {
     setOrderModalOpen(false);
   }
 
-  const totalPrice = useMemo(() => cartItems.reduce((acc, item) => acc + item.price, 0), [cartItems]);
+  const totalPrice = useMemo(() => {
+    const bunPrice = cartBun ? cartBun.price * 2 : 0;
+    return bunPrice + cartItems.reduce((acc, item) => acc + item.price, 0)
+  }, [cartItems, cartBun]);
 
   return (
     <>
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`}>
-        {cartItems.map((item, index) => {
-          let type;
-          if (index === 0) type = 'top';
-          else if (index === cartItems.length - 1) type = 'bottom';
-
-          return (
-            <ConstructorCard key={item.id} item={item} type={type} />
-          )
+        <ConstructorBun type='top' />
+        {cartItems.map((item) => {
+          return <ConstructorCard key={item.id} item={item} />
         })}
+        <ConstructorBun type='bottom' />
 
         <footer className={`mt-10 ${styles.footer}`}>
           <div className="mr-10">
