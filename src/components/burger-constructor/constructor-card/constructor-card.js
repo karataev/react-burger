@@ -3,6 +3,8 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import styles from './constructor-card.module.css';
 import PropTypes from "prop-types";
 import {ingredientType} from "../../../utils/types";
+import {useDispatch} from "react-redux";
+import {CART_ITEM_REMOVE} from "../../../store/actions";
 
 function ConstructorCard({item, type}) {
   const isTop = type === 'top';
@@ -14,6 +16,12 @@ function ConstructorCard({item, type}) {
     if (isBottom) return `${item.name} (низ)`;
     return item.name;
   }, [item, isTop, isBottom]);
+
+  const dispatch = useDispatch();
+
+  function onRemove() {
+    dispatch({type: CART_ITEM_REMOVE, id: item.id});
+  }
 
   return (
     <div key={item._id} className={`mb-4 ${styles.root}`}>
@@ -27,6 +35,7 @@ function ConstructorCard({item, type}) {
         price={item.price}
         extraClass="ml-2"
         isLocked={isTop || isBottom}
+        handleClose={onRemove}
       />
     </div>
   )

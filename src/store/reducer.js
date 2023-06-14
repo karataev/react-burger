@@ -1,4 +1,10 @@
-import {GET_INGREDIENTS_FAIL, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS} from "./actions";
+import {
+  CART_ITEM_ADD,
+  CART_ITEM_REMOVE,
+  GET_INGREDIENTS_FAIL,
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS
+} from "./actions";
 import {v4 as uuidv4} from "uuid";
 
 const initialState = {
@@ -41,6 +47,21 @@ export function reducer(state = initialState, action) {
       ...state,
       ingredientsLoading: false,
       ingredientsError: true,
+    }
+  }
+  case CART_ITEM_ADD: {
+    return {
+      ...state,
+      cartItems: [
+        ...state.cartItems,
+        addId(action.item),
+      ]
+    }
+  }
+  case CART_ITEM_REMOVE: {
+    return {
+      ...state,
+      cartItems: state.cartItems.filter(item => item.id !== action.id),
     }
   }
   default: {

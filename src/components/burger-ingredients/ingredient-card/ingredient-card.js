@@ -3,12 +3,17 @@ import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
 import PropTypes from "prop-types";
+import {useDispatch} from "react-redux";
+import {CART_ITEM_ADD} from "../../../store/actions";
 
 function IngredientCard({item, onIngredientClick}) {
   const {name, price, image} = item;
 
+  const dispatch = useDispatch();
+
   function handleClick() {
     onIngredientClick(item);
+    dispatch({type: CART_ITEM_ADD, item});
   }
 
   return (
