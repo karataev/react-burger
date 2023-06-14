@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styles from './constructor-card.module.css';
 
 function ConstructorBun({type}) {
-  const cartBun = useSelector(store => store.cartBun);
+  const cartBun = useSelector(store => store.cart.cartBun);
 
   if (!cartBun) return null;
 

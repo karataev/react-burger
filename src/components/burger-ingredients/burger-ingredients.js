@@ -4,13 +4,14 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import IngredientDetails from "./ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
-import {SET_CURRENT_TAB} from "../../store/actions";
 import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
+
+import {SET_CURRENT_TAB} from "../../store/actions/ingredients";
 
 function BurgerIngredients() {
   const [selectedIngredient, setSelectedIngredient] = useState(null);
-  const ingredients = useSelector(store => store.ingredients);
-  const currentTab = useSelector(store => store.currentTab);
+  const ingredients = useSelector(store => store.ingredients.ingredients);
+  const currentTab = useSelector(store => store.ingredients.currentTab);
 
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);

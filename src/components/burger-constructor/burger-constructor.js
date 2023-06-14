@@ -8,8 +8,8 @@ import ConstructorBun from "./constructor-card/constructor-bun";
 
 function BurgerConstructor() {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
-  const cartItems = useSelector(store => store.cartItems);
-  const cartBun = useSelector(store => store.cartBun);
+  const cartItems = useSelector(store => store.cart.cartItems);
+  const cartBun = useSelector(store => store.cart.cartBun);
 
   function onModalOpen() {
     setOrderModalOpen(true);

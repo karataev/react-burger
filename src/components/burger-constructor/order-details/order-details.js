@@ -11,8 +11,8 @@ function OrderDetails({onClose}) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [orderNumber, setOrderNumber] = useState(null);
-  const cartItems = useSelector(store => store.cartItems);
-  const cartBun = useSelector(store => store.cartBun);
+  const cartItems = useSelector(store => store.cart.cartItems);
+  const cartBun = useSelector(store => store.cart.cartBun);
 
   useEffect(() => {
     async function createOrder() {

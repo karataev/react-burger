@@ -8,7 +8,7 @@ import {GROUP_BUNS, GROUP_SAUCES} from "../../../utils/constants";
 
 function IngredientGroup({items, type, onIngredientClick}) {
   const titleRef = useRef();
-  const currentTab = useSelector(store => store.currentTab);
+  const currentTab = useSelector(store => store.ingredients.currentTab);
 
   const title = useMemo(() => {
     if (type === GROUP_BUNS) return 'Булки';

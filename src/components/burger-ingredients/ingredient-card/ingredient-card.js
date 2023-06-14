@@ -4,7 +4,7 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {ingredientType} from "../../../utils/types";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
-import {CART_BUN_SET, CART_ITEM_ADD} from "../../../store/actions";
+import {CART_BUN_SET, CART_ITEM_ADD} from "../../../store/actions/cart";
 
 function IngredientCard({item, onIngredientClick}) {
   const {name, price, image} = item;
