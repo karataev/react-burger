@@ -10,7 +10,7 @@ function ConstructorCard({item}) {
   const dispatch = useDispatch();
 
   function onRemove() {
-    dispatch({type: CART_ITEM_REMOVE, id: item.id});
+    dispatch({type: CART_ITEM_REMOVE, key: item.key});
   }
 
   return (

@@ -6,13 +6,6 @@ const initialState = {
   cartItems: [],
 }
 
-function addId(item) {
-  return {
-    ...item,
-    id: uuidv4(),
-  }
-}
-
 export function cartReducer(state = initialState, action) {
   switch (action.type) {
   case CART_BUN_SET: {
@@ -26,14 +19,14 @@ export function cartReducer(state = initialState, action) {
       ...state,
       cartItems: [
         ...state.cartItems,
-        addId(action.item),
+        {...action.item, key: uuidv4()},
       ]
     }
   }
   case CART_ITEM_REMOVE: {
     return {
       ...state,
-      cartItems: state.cartItems.filter(item => item.id !== action.id),
+      cartItems: state.cartItems.filter(item => item.key !== action.key),
     }
   }
   default: {

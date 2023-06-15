@@ -29,7 +29,7 @@ function BurgerConstructor() {
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`}>
         <ConstructorBun type='top' />
         {cartItems.map((item) => {
-          return <ConstructorCard key={item.id} item={item} />
+          return <ConstructorCard key={item.key} item={item} />
         })}
         <ConstructorBun type='bottom' />
 
