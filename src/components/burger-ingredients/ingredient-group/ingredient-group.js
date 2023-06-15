@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {useEffect, useMemo, useRef} from "react";
 import {GROUP_BUNS, GROUP_SAUCES} from "../../../utils/constants";
 
-function IngredientGroup({items, type, onIngredientClick}) {
+function IngredientGroup({items, type}) {
   const titleRef = useRef();
   const currentTab = useSelector(store => store.ingredients.currentTab);
 
@@ -27,7 +27,7 @@ function IngredientGroup({items, type, onIngredientClick}) {
         {items.map(item => {
           return (
             <li key={item._id} className={styles.li}>
-              <IngredientCard item={item} onIngredientClick={onIngredientClick} />
+              <IngredientCard item={item} />
             </li>
           )
         })}
@@ -39,7 +39,6 @@ function IngredientGroup({items, type, onIngredientClick}) {
 IngredientGroup.propTypes = {
   type: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(ingredientType).isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
 }
 
 export default IngredientGroup;

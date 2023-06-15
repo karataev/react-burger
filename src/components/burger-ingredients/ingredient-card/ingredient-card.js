@@ -2,17 +2,17 @@ import React from 'react';
 import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
-import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../../store/actions/cart";
+import {SET_SELECTED_INGREDIENT} from "../../../store/actions/ingredients";
 
-function IngredientCard({item, onIngredientClick}) {
+function IngredientCard({item}) {
   const {name, price, image} = item;
 
   const dispatch = useDispatch();
 
   function handleClick() {
-    onIngredientClick(item);
+    dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
     if (item.type === 'bun') {
       dispatch({type: CART_BUN_SET, bun: item});
     } else {
@@ -39,7 +39,6 @@ function IngredientCard({item, onIngredientClick}) {
 
 IngredientCard.propTypes = {
   item: ingredientType.isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
 }
 
 export default React.memo(IngredientCard);

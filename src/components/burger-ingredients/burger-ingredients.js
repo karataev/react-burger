@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group";
@@ -9,19 +9,13 @@ import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
 import {SET_CURRENT_TAB} from "../../store/actions/ingredients";
 
 function BurgerIngredients() {
-  const [selectedIngredient, setSelectedIngredient] = useState(null);
-  const ingredients = useSelector(store => store.ingredients.ingredients);
-  const currentTab = useSelector(store => store.ingredients.currentTab);
+  const {ingredients, currentTab} = useSelector(store => store.ingredients);
 
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
   const fillings = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
   const dispatch = useDispatch();
-
-  function onModalClose() {
-    setSelectedIngredient(null);
-  }
 
   function setCurrentTab(tab) {
     dispatch({type: SET_CURRENT_TAB, tab});
@@ -43,14 +37,12 @@ function BurgerIngredients() {
           </Tab>
         </div>
         <div className={`${styles.scrollable} custom-scroll`}>
-          <IngredientGroup type={GROUP_BUNS} items={buns} onIngredientClick={setSelectedIngredient} />
-          <IngredientGroup type={GROUP_SAUCES} items={sauces} onIngredientClick={setSelectedIngredient} />
-          <IngredientGroup type={GROUP_FILLINGS} items={fillings} onIngredientClick={setSelectedIngredient} />
+          <IngredientGroup type={GROUP_BUNS} items={buns} />
+          <IngredientGroup type={GROUP_SAUCES} items={sauces} />
+          <IngredientGroup type={GROUP_FILLINGS} items={fillings} />
         </div>
       </section>
-      {selectedIngredient && (
-        <IngredientDetails ingredient={selectedIngredient} onClose={onModalClose} />
-      )}
+      <IngredientDetails />
     </>
   )}
 

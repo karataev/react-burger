@@ -1,10 +1,19 @@
 import Modal from "../../modal/modal";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../../utils/types";
 import styles from './ingredient-details.module.css';
 import DetailItem from "./detail-item";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_SELECTED_INGREDIENT} from "../../../store/actions/ingredients";
 
-function IngredientDetails({ingredient, onClose}) {
+function IngredientDetails() {
+  const dispatch = useDispatch();
+  const {selectedIngredient: ingredient} = useSelector(store => store.ingredients);
+
+  function onClose() {
+    dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: null});
+  }
+
+  if (!ingredient) return null;
+
   return (
     <Modal title="Детали ингредиента" onClose={onClose}>
       <section className={styles.main}>
@@ -19,11 +28,6 @@ function IngredientDetails({ingredient, onClose}) {
       </section>
     </Modal>
   )
-}
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientType.isRequired,
-  onClose: PropTypes.func.isRequired,
 }
 
 export default IngredientDetails;

@@ -1,7 +1,8 @@
 import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS, SET_CURRENT_TAB
+  GET_INGREDIENTS_SUCCESS,
+  SET_CURRENT_TAB, SET_SELECTED_INGREDIENT
 } from "../actions/ingredients";
 import {GROUP_BUNS} from "../../utils/constants";
 
@@ -10,6 +11,7 @@ const initialState = {
   ingredientsLoading: false,
   ingredientsError: false,
   currentTab: GROUP_BUNS,
+  selectedIngredient: null,
 }
 
 export function ingredientsReducer(state = initialState, action) {
@@ -38,6 +40,12 @@ export function ingredientsReducer(state = initialState, action) {
     return {
       ...state,
       currentTab: action.tab,
+    }
+  }
+  case SET_SELECTED_INGREDIENT: {
+    return {
+      ...state,
+      selectedIngredient: action.selectedIngredient,
     }
   }
   default: {
