@@ -2,35 +2,21 @@ import Modal from "../../modal/modal";
 import PropTypes from "prop-types";
 import doneImg from '../../../images/done.png';
 import styles from './order-details.module.css';
-import {useEffect, useState} from "react";
-import {createOrderApi} from "../../../api/burger-api";
+import {useEffect} from "react";
 import Loader from "../../loader/loader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {createOrder} from "../../../store/actions/order";
 
 function OrderDetails({onClose}) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [orderNumber, setOrderNumber] = useState(null);
-  const cartItems = useSelector(store => store.cart.cartItems);
-  const cartBun = useSelector(store => store.cart.cartBun);
+  const dispatch = useDispatch();
+  const {cartItems, cartBun} = useSelector(store => store.cart);
+  const {isLoading, errorMessage, orderNumber} = useSelector(store => store.order);
 
   useEffect(() => {
-    async function createOrder() {
-      setIsLoading(true);
-      setErrorMessage('');
-      try {
-        const itemIds = cartItems.map(item => item._id);
-        const ids = [cartBun._id, ...itemIds, cartBun._id];
-        const result = await createOrderApi(ids);
-        setOrderNumber(result.order.number);
-      } catch (e) {
-        setErrorMessage(e?.message);
-      }
-      setIsLoading(false);
-    }
-
-    createOrder();
-  }, [cartItems, cartBun]);
+    const itemIds = cartItems.map(item => item._id);
+    const ids = [cartBun._id, ...itemIds, cartBun._id];
+    dispatch(createOrder(ids));
+  }, [dispatch, cartItems, cartBun]);
 
   return (
     <Modal onClose={onClose}>
