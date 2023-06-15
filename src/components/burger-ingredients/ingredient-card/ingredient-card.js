@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
-import {useDispatch} from "react-redux";
-import {CART_BUN_SET, CART_ITEM_ADD} from "../../../services/actions/cart";
+import {useDispatch, useSelector} from "react-redux";
 import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 import {useDrag} from "react-dnd";
 
@@ -16,18 +15,19 @@ function IngredientCard({item}) {
     item: {ingredient: item},
   });
 
+  const {cartItems, cartBun} = useSelector(store => store.cart);
+  const itemsCount = useMemo(() => {
+    if (item.type === 'bun') return cartBun?._id === item._id ? 2 : 0;
+    return cartItems.filter(cartItem => cartItem._id === item._id).length;
+  }, [item, cartItems, cartBun]);
+
   function handleClick() {
     dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
-    if (item.type === 'bun') {
-      dispatch({type: CART_BUN_SET, bun: item});
-    } else {
-      dispatch({type: CART_ITEM_ADD, item});
-    }
   }
 
   return (
     <div className={`mt-6 ${styles.root}`} onClick={handleClick}>
-      <Counter count={1} size="default" />
+      {itemsCount > 0 && <Counter count={itemsCount} size="default" />}
       <div ref={dragRef}>
         <img src={image} alt={name} className={styles.img} />
       </div>
