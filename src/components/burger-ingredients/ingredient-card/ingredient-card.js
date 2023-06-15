@@ -5,11 +5,16 @@ import {ingredientType} from "../../../utils/types";
 import {useDispatch} from "react-redux";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../../services/actions/cart";
 import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
+import {useDrag} from "react-dnd";
 
 function IngredientCard({item}) {
   const {name, price, image} = item;
 
   const dispatch = useDispatch();
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: {ingredient: item},
+  });
 
   function handleClick() {
     dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
@@ -23,7 +28,7 @@ function IngredientCard({item}) {
   return (
     <div className={`mt-6 ${styles.root}`} onClick={handleClick}>
       <Counter count={1} size="default" />
-      <div>
+      <div ref={dragRef}>
         <img src={image} alt={name} className={styles.img} />
       </div>
       <div className={`text text_type_digits-default mt-1 ${styles.price}`}>
