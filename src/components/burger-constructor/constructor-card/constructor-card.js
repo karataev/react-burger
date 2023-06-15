@@ -4,7 +4,7 @@ import styles from './constructor-card.module.css';
 import {ingredientType} from "../../../utils/types";
 import {useDispatch} from "react-redux";
 
-import {CART_ITEM_REMOVE} from "../../../store/actions/cart";
+import {CART_ITEM_REMOVE} from "../../../services/actions/cart";
 
 function ConstructorCard({item}) {
   const dispatch = useDispatch();

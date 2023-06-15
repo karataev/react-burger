@@ -4,7 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from './app.module.css';
 import Loader from "../loader/loader";
-import {getIngredients} from "../../store/actions/ingredients";
+import {getIngredients} from "../../services/actions/ingredients";
 import {useDispatch, useSelector} from "react-redux";
 
 function App() {

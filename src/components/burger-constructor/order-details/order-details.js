@@ -5,7 +5,7 @@ import styles from './order-details.module.css';
 import {useEffect} from "react";
 import Loader from "../../loader/loader";
 import {useDispatch, useSelector} from "react-redux";
-import {createOrder} from "../../../store/actions/order";
+import {createOrder} from "../../../services/actions/order";
 
 function OrderDetails({onClose}) {
   const dispatch = useDispatch();

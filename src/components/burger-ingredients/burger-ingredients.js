@@ -6,7 +6,7 @@ import IngredientDetails from "./ingredient-details/ingredient-details";
 import {useDispatch, useSelector} from "react-redux";
 import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
 
-import {SET_CURRENT_TAB} from "../../store/actions/ingredients";
+import {SET_CURRENT_TAB} from "../../services/actions/ingredients";
 
 function BurgerIngredients() {
   const {ingredients, currentTab} = useSelector(store => store.ingredients);

@@ -3,8 +3,8 @@ import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientType} from "../../../utils/types";
 import {useDispatch} from "react-redux";
-import {CART_BUN_SET, CART_ITEM_ADD} from "../../../store/actions/cart";
-import {SET_SELECTED_INGREDIENT} from "../../../store/actions/ingredients";
+import {CART_BUN_SET, CART_ITEM_ADD} from "../../../services/actions/cart";
+import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 
 function IngredientCard({item}) {
   const {name, price, image} = item;
