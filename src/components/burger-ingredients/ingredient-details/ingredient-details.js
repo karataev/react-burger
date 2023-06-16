@@ -2,14 +2,14 @@ import Modal from "../../modal/modal";
 import styles from './ingredient-details.module.css';
 import DetailItem from "./detail-item";
 import {useDispatch, useSelector} from "react-redux";
-import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
+import {CLEAR_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 
 function IngredientDetails() {
   const dispatch = useDispatch();
   const {selectedIngredient: ingredient} = useSelector(store => store.ingredients);
 
   function onClose() {
-    dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: null});
+    dispatch({type: CLEAR_SELECTED_INGREDIENT});
   }
 
   if (!ingredient) return null;

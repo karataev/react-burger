@@ -1,4 +1,5 @@
 import {
+  CLEAR_SELECTED_INGREDIENT,
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -38,6 +39,12 @@ export function ingredientsReducer(state = initialState, action) {
     return {
       ...state,
       selectedIngredient: action.selectedIngredient,
+    }
+  }
+  case CLEAR_SELECTED_INGREDIENT: {
+    return {
+      ...state,
+      selectedIngredient: null,
     }
   }
   default: {
