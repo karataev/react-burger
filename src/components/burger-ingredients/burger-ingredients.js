@@ -1,31 +1,24 @@
-import {useCallback, useMemo, useRef} from 'react';
+import {useCallback, useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import IngredientDetails from "./ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
 import debounce from 'lodash.debounce';
 
-import {SET_CURRENT_TAB} from "../../services/actions/ingredients";
-
 function BurgerIngredients() {
-  const {ingredients, currentTab} = useSelector(store => store.ingredients);
+  const {ingredients} = useSelector(store => store.ingredients);
+  const [currentTab, setCurrentTab] = useState(GROUP_BUNS);
 
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
   const fillings = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
-  const dispatch = useDispatch();
-
   const rootRef = useRef();
   const bunsRef = useRef();
   const saucesRef = useRef();
   const fillingsRef = useRef();
-
-  function setCurrentTab(tab) {
-    dispatch({type: SET_CURRENT_TAB, tab});
-  }
 
   function getDist(ref) {
     const rootTop = rootRef.current.getBoundingClientRect().top;
@@ -47,10 +40,8 @@ function BurgerIngredients() {
         closestTab = item.tab;
       }
     })
-    if (currentTab !== closestTab) {
-      dispatch({type: SET_CURRENT_TAB, tab: closestTab});
-    }
-  }, [currentTab, dispatch]);
+    if (currentTab !== closestTab) setCurrentTab(closestTab);
+  }, [currentTab]);
 
   const debouncedScroll = useMemo(() => debounce(onScroll, 50), [onScroll]);
 
