@@ -1,42 +1,20 @@
-import {useEffect} from "react";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import HomePage from "../../pages/home/home-page";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import ProfilePage from "../../pages/profile/profile-page";
 import styles from './app.module.css';
-import Loader from "../loader/loader";
-import {getIngredients} from "../../services/actions/ingredients";
-import {useDispatch, useSelector} from "react-redux";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
-  const dispatch = useDispatch();
-  const ingredientsLoading = useSelector(store => store.ingredients.ingredientsLoading);
-  const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
   return (
     <div className={styles.root}>
-      {ingredientsLoading ? <Loader /> : (
-        <>
-          {ingredientsError ? <div>Произошла ошибка</div> : (
-            <>
-              <AppHeader />
-              <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients />
-                  <BurgerConstructor />
-                </DndProvider>
-              </main>
-            </>
-          )}
-        </>
-      )}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
+
 }
 
 export default App;
