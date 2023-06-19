@@ -1,52 +1,74 @@
-import {useMemo, useState} from 'react';
+import {useCallback, useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/types";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import IngredientDetails from "./ingredient-details/ingredient-details";
+import {useSelector} from "react-redux";
+import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
+import debounce from 'lodash.debounce';
 
-function BurgerIngredients({ingredients}) {
-  const [currentTab, setCurrentTab] = useState('buns');
-  const [selectedIngredient, setSelectedIngredient] = useState(null);
+function BurgerIngredients() {
+  const {ingredients} = useSelector(store => store.ingredients);
+  const [currentTab, setCurrentTab] = useState(GROUP_BUNS);
 
   const buns = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
   const sauces = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
   const fillings = useMemo(() => ingredients.filter(item => item.type === 'main'), [ingredients]);
 
-  function onModalClose() {
-    setSelectedIngredient(null);
+  const rootRef = useRef();
+  const bunsRef = useRef();
+  const saucesRef = useRef();
+  const fillingsRef = useRef();
+
+  function getDist(ref) {
+    const rootTop = rootRef.current.getBoundingClientRect().top;
+    const refTop = ref.current.getBoundingClientRect().top;
+    return Math.abs(rootTop - refTop);
   }
+
+  const onScroll = useCallback(() => {
+    let minDist = 100000;
+    let closestTab = '';
+    const items = [
+      {tab: GROUP_BUNS, dist: getDist(bunsRef)},
+      {tab: GROUP_SAUCES, dist: getDist(saucesRef)},
+      {tab: GROUP_FILLINGS, dist: getDist(fillingsRef)},
+    ]
+    items.forEach(item => {
+      if (item.dist < minDist) {
+        minDist = item.dist;
+        closestTab = item.tab;
+      }
+    })
+    if (currentTab !== closestTab) setCurrentTab(closestTab);
+  }, [currentTab]);
+
+  const debouncedScroll = useMemo(() => debounce(onScroll, 50), [onScroll]);
 
   return (
     <>
-      <section className={`pt-10 ${styles.root}`}>
+      <section className={`pt-10 ${styles.root}`} ref={rootRef}>
         <h1 className="text text_type_main-large">Соберите бургер</h1>
         <div className={`mt-5 ${styles.tabs}`}>
-          <Tab active={currentTab === 'buns'} value="buns" className={styles.tab} onClick={setCurrentTab}>
+          <Tab active={currentTab === GROUP_BUNS} value={GROUP_BUNS} className={styles.tab} onClick={setCurrentTab}>
             Булки
           </Tab>
-          <Tab active={currentTab === 'sauces'} value="sauces" onClick={setCurrentTab}>
+          <Tab active={currentTab === GROUP_SAUCES} value={GROUP_SAUCES} onClick={setCurrentTab}>
             Соусы
           </Tab>
-          <Tab active={currentTab === 'fillings'} value="fillings" onClick={setCurrentTab}>
+          <Tab active={currentTab === GROUP_FILLINGS} value={GROUP_FILLINGS} onClick={setCurrentTab}>
             Начинки
           </Tab>
         </div>
-        <div className={`${styles.scrollable} custom-scroll`}>
-          <IngredientGroup title="Булки" items={buns} onIngredientClick={setSelectedIngredient} />
-          <IngredientGroup title="Соусы" items={sauces} onIngredientClick={setSelectedIngredient} />
-          <IngredientGroup title="Начинки" items={fillings} onIngredientClick={setSelectedIngredient} />
+        <div className={`${styles.scrollable} custom-scroll`} onScroll={debouncedScroll}>
+          <IngredientGroup type={GROUP_BUNS} items={buns} groupRef={bunsRef} />
+          <IngredientGroup type={GROUP_SAUCES} items={sauces} groupRef={saucesRef} />
+          <IngredientGroup type={GROUP_FILLINGS} items={fillings} groupRef={fillingsRef} />
         </div>
       </section>
-      {selectedIngredient && (
-        <IngredientDetails ingredient={selectedIngredient} onClose={onModalClose} />
-      )}
+      <IngredientDetails />
     </>
   )}
 
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
-}
 
 export default BurgerIngredients;

@@ -2,16 +2,24 @@ import styles from "./ingredient-group.module.css";
 import PropTypes from "prop-types";
 import {ingredientType} from "../../../utils/types";
 import IngredientCard from "../ingredient-card/ingredient-card";
+import {useMemo} from "react";
+import {GROUP_BUNS, GROUP_SAUCES} from "../../../utils/constants";
 
-function IngredientGroup({items, title, onIngredientClick}) {
+function IngredientGroup({items, type, groupRef}) {
+  const title = useMemo(() => {
+    if (type === GROUP_BUNS) return 'Булки';
+    if (type === GROUP_SAUCES) return 'Соусы';
+    return 'Начинки';
+  }, [type])
+
   return (
     <>
-      <h2 className="text text_type_main-medium mt-10">{title}</h2>
+      <h2 ref={groupRef} className="text text_type_main-medium pt-10">{title}</h2>
       <ul className={styles.cards}>
         {items.map(item => {
           return (
             <li key={item._id} className={styles.li}>
-              <IngredientCard item={item} onIngredientClick={onIngredientClick} />
+              <IngredientCard item={item} />
             </li>
           )
         })}
@@ -21,9 +29,8 @@ function IngredientGroup({items, title, onIngredientClick}) {
 }
 
 IngredientGroup.propTypes = {
-  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(ingredientType).isRequired,
-  onIngredientClick: PropTypes.func.isRequired,
 }
 
 export default IngredientGroup;

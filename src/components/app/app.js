@@ -1,65 +1,35 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import styles from './app.module.css';
 import Loader from "../loader/loader";
-import {fetchIngredientsApi} from "../../api/burger-api";
+import {getIngredients} from "../../services/actions/ingredients";
+import {useDispatch, useSelector} from "react-redux";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
-  const [state, setState] = useState({
-    isLoading: true,
-    hasError: false,
-    ingredients: [],
-    constructorItems: [],
-  })
+  const dispatch = useDispatch();
+  const ingredientsLoading = useSelector(store => store.ingredients.ingredientsLoading);
+  const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
 
   useEffect(() => {
-    function fetchIngredients() {
-      fetchIngredientsApi()
-        .then(res => {
-          const ingredients = res.data;
-          setState({
-            isLoading: false,
-            hasError: false,
-            ingredients,
-            constructorItems: [
-              ingredients[0],
-              ingredients[2],
-              ingredients[3],
-              {
-                ...ingredients[0],
-                _id: ingredients[0]._id + '_bottom',
-              },
-            ]
-          })
-        })
-        .catch(() => {
-          setState(s => ({
-            ...s,
-            isLoading: false,
-            hasError: true,
-          }))
-        })
-    }
-
-    setState(s => ({
-      ...s,
-      isLoading: true,
-    }))
-    fetchIngredients();
-  }, [])
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.root}>
-      {state.isLoading ? <Loader /> : (
+      {ingredientsLoading ? <Loader /> : (
         <>
-          {state.hasError ? <div>Произошла ошибка</div> : (
+          {ingredientsError ? <div>Произошла ошибка</div> : (
             <>
               <AppHeader />
               <main className={styles.main}>
-                <BurgerIngredients ingredients={state.ingredients} />
-                <BurgerConstructor items={state.constructorItems} />
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </DndProvider>
               </main>
             </>
           )}
