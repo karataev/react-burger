@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
 import Loader from "../loader/loader";
 import NotFound404 from "../../pages/404/not-found-404";
+import RegisterPage from "../../pages/register/register-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </BrowserRouter>
