@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
 import Loader from "../loader/loader";
+import NotFound404 from "../../pages/404/not-found-404";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<NotFound404 />} />
           </Routes>
         </BrowserRouter>
       )}
