@@ -8,6 +8,8 @@ import {getIngredients} from "../../services/actions/ingredients";
 import Loader from "../loader/loader";
 import NotFound404 from "../../pages/404/not-found-404";
 import RegisterPage from "../../pages/register/register-page";
+import LoginPage from "../../pages/login/login-page";
+import AppHeader from "../app-header/app-header";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,14 +25,18 @@ function App() {
       {ingredientsLoading && <Loader />}
       {ingredientsError && <div>Произошла ошибка</div>}
       {!ingredientsLoading && !ingredientsError && (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="*" element={<NotFound404 />} />
-          </Routes>
-        </BrowserRouter>
+        <>
+          <BrowserRouter>
+            <AppHeader />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="*" element={<NotFound404 />} />
+            </Routes>
+          </BrowserRouter>
+        </>
       )}
     </div>
   )

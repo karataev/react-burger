@@ -1,11 +1,9 @@
-import AppHeader from "../../components/app-header/app-header";
 
 function NotFound404() {
   return (
-    <>
-      <AppHeader />
+    <div>
       <h1>404</h1>
-    </>
+    </div>
   )
 }
 
