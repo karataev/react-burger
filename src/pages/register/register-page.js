@@ -11,7 +11,7 @@ function RegisterPage() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log('submit');
+    console.log('todo submit');
   }
 
   function onLogin() {
