@@ -13,6 +13,7 @@ import AppHeader from "../app-header/app-header";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {ROUTES} from "../../utils/constants";
+import OrdersPage from "../../pages/orders/orders-page";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
             <Routes>
               <Route path={ROUTES.HOME} element={<HomePage />} />
               <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+              <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
               <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
               <Route path={ROUTES.LOGIN} element={<LoginPage />} />
               <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
