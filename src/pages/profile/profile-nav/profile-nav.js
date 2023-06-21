@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
-import {ROUTES} from "../../utils/constants";
-import styles from "../../pages/profile/profile-page.module.css";
+import {ROUTES} from "../../../utils/constants";
+import styles from "../profile-page.module.css";
 
 function ProfileNav() {
 
@@ -10,7 +10,7 @@ function ProfileNav() {
 
   return (
     <div>
-      <NavLink to={ROUTES.PROFILE} className={styles.link}>
+      <NavLink to={ROUTES.PROFILE} className={styles.link} end>
         {({isActive}) => (
           <span className={`text text_type_main-medium ${!isActive && 'text_color_inactive'}`}>Профиль</span>
         )}

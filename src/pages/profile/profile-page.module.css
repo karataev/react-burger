@@ -1,11 +1,6 @@
 .root {
   display: flex;
-  justify-content: center;
   margin-top: 120px;
-}
-
-.columns {
-  display: flex;
   gap: 60px;
 }
 
