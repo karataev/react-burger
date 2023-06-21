@@ -10,6 +10,8 @@ import NotFound404 from "../../pages/404/not-found-404";
 import RegisterPage from "../../pages/register/register-page";
 import LoginPage from "../../pages/login/login-page";
 import AppHeader from "../app-header/app-header";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="*" element={<NotFound404 />} />
             </Routes>
           </BrowserRouter>
