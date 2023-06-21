@@ -1,22 +1,34 @@
 import {checkResponse} from "../utils/utils";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
+// https://norma.nomoreparties.space/api/password-reset/reset
 
 export function fetchIngredientsApi() {
   return fetch(`${NORMA_API}/ingredients`)
     .then(checkResponse)
 }
 
-export function createOrderApi(ids) {
-  const body = JSON.stringify({
-    ingredients: ids,
-  })
-  return fetch(`${NORMA_API}/orders`, {
+function post(url, body) {
+  return fetch(url, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
     },
-    body
+    body: JSON.stringify(body),
   })
     .then(checkResponse)
+}
+
+export function createOrderApi(ids) {
+  return post(`${NORMA_API}/orders`, {
+    ingredients: ids,
+  });
+}
+
+export function resetPasswordApi(email) {
+  return post(`${NORMA_API}/password-reset`, {email});
+}
+
+export function confirmResetPasswordApi({password, token}) {
+  return post(`${NORMA_API}/reset`, {password, token});
 }
