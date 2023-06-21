@@ -1,7 +1,6 @@
 import {checkResponse} from "../utils/utils";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
-// https://norma.nomoreparties.space/api/password-reset/reset
 
 export function fetchIngredientsApi() {
   return fetch(`${NORMA_API}/ingredients`)
@@ -31,4 +30,8 @@ export function resetPasswordApi(email) {
 
 export function confirmResetPasswordApi({password, token}) {
   return post(`${NORMA_API}/reset`, {password, token});
+}
+
+export function loginApi({email, password}) {
+  return post(`${NORMA_API}/auth/login`, {email, password});
 }

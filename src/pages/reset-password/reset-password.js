@@ -2,7 +2,7 @@ import styles from './reset-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import {confirmResetPasswordApi} from "../../api/burger-api";
+import {confirmResetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 
 function ResetPassword() {

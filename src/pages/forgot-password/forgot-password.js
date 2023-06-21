@@ -2,7 +2,7 @@ import styles from './forgot-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import {resetPasswordApi} from "../../api/burger-api";
+import {resetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 
 function ForgotPassword() {

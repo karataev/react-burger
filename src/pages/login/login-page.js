@@ -3,15 +3,19 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
+import {login} from "../../services/actions/auth";
+import {useDispatch, useSelector} from "react-redux";
 
 function LoginPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const {isLoading, errorMessage} = useSelector(store => store.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log('todo submit');
+    dispatch(login({login: name, email}));
   }
 
   function onRegister() {
@@ -40,7 +44,8 @@ function LoginPage() {
             placeholder="E-mail"
             onChange={e => setEmail(e.target.value)}
           />
-          <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`}>
+          {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
+          <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>
             Войти
           </Button>
         </form>
