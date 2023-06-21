@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {login} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
+import Loader from "../../components/loader/loader";
 
 function LoginPage() {
   const [name, setName] = useState('');
@@ -46,7 +47,7 @@ function LoginPage() {
           />
           {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
           <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>
-            Войти
+            {isLoading ? <Loader /> : 'Войти'}
           </Button>
         </form>
         <p className={'mt-20'}>

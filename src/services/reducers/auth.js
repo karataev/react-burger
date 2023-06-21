@@ -1,4 +1,11 @@
-import {LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS} from "../actions/auth";
+import {
+  LOGIN_ERROR,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  REGISTER_ERROR,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS
+} from "../actions/auth";
 
 const initialState = {
   isLoading: false,
@@ -18,9 +25,31 @@ export function authReducer(state = initialState, action) {
     return {
       ...state,
       isLoading: false,
+      // todo
     }
   }
   case LOGIN_ERROR: {
+    return {
+      ...state,
+      isLoading: false,
+      errorMessage: action.message,
+    }
+  }
+  case REGISTER_REQUEST: {
+    return {
+      ...state,
+      isLoading: true,
+      errorMessage: '',
+    }
+  }
+  case REGISTER_SUCCESS: {
+    return {
+      ...state,
+      isLoading: false,
+      // todo
+    }
+  }
+  case REGISTER_ERROR: {
     return {
       ...state,
       isLoading: false,

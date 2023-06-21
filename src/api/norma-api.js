@@ -35,3 +35,7 @@ export function confirmResetPasswordApi({password, token}) {
 export function loginApi({email, password}) {
   return post(`${NORMA_API}/auth/login`, {email, password});
 }
+
+export function registerApi({name, email, password}) {
+  return post(`${NORMA_API}/auth/register`, {name, email, password});
+}

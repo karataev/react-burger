@@ -3,6 +3,9 @@ import {useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
+import {useDispatch, useSelector} from "react-redux";
+import {register} from "../../services/actions/auth";
+import Loader from "../../components/loader/loader";
 
 function RegisterPage() {
   const [name, setName] = useState('');
@@ -10,6 +13,8 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [passwordView, setPasswordView] = useState('password');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {isLoading, errorMessage} = useSelector(store => store.auth);
 
   function onTogglePasswordView() {
     const view = passwordView === 'password' ? 'text' : 'password';
@@ -18,7 +23,7 @@ function RegisterPage() {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log('todo submit');
+    dispatch(register({name, email, password}));
   }
 
   function onLogin() {
@@ -53,8 +58,9 @@ function RegisterPage() {
             onChange={e => setPassword(e.target.value)}
           />
 
-          <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`}>
-            Зарегистрироваться
+          {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
+          <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>
+            {isLoading ? <Loader /> : 'Зарегистрироваться'}
           </Button>
         </form>
         <p className={'mt-20'}>
