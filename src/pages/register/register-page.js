@@ -8,7 +8,13 @@ function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordView, setPasswordView] = useState('password');
   const navigate = useNavigate();
+
+  function onTogglePasswordView() {
+    const view = passwordView === 'password' ? 'text' : 'password';
+    setPasswordView(view)
+  }
 
   function onSubmit(e) {
     e.preventDefault();
@@ -40,8 +46,10 @@ function RegisterPage() {
           <Input
             extraClass={`mt-6`}
             value={password}
-            type="password"
+            type={passwordView}
             placeholder="Password"
+            icon={passwordView === 'password' ? 'ShowIcon' : 'HideIcon'}
+            onIconClick={onTogglePasswordView}
             onChange={e => setPassword(e.target.value)}
           />
 
