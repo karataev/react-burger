@@ -2,6 +2,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../utils/constants";
 
 function RegisterPage() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ function RegisterPage() {
   }
 
   function onLogin() {
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }
 
   return (

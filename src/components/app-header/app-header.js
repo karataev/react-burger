@@ -1,6 +1,7 @@
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
+import {ROUTES} from "../../utils/constants";
 
 function NavItem(props) {
   return (
@@ -25,14 +26,14 @@ function AppHeader() {
   return (
     <header className={`pt-4 pb-4 ${styles.header}`}>
       <div className={`${styles.col} ${styles.col_left}`}>
-        <NavItem to="/" title="Конструктор" icon="burger" />
+        <NavItem to={ROUTES.HOME} title="Конструктор" icon="burger" />
         <NavItem to="/todo" title="Лента заказов" icon="list" />
       </div>
       <div className={styles.col}>
         <Logo />
       </div>
       <div className={`${styles.col} ${styles.col_right}`}>
-        <NavItem to="/profile" title="Личный кабинет" icon="profile" />
+        <NavItem to={ROUTES.PROFILE} title="Личный кабинет" icon="profile" />
       </div>
     </header>
   )

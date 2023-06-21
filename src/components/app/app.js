@@ -12,6 +12,7 @@ import LoginPage from "../../pages/login/login-page";
 import AppHeader from "../app-header/app-header";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
+import {ROUTES} from "../../utils/constants";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,12 +32,12 @@ function App() {
           <BrowserRouter>
             <AppHeader />
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path={ROUTES.HOME} element={<HomePage />} />
+              <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+              <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+              <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+              <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+              <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
               <Route path="*" element={<NotFound404 />} />
             </Routes>
           </BrowserRouter>

@@ -2,6 +2,7 @@ import styles from './login-page.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../utils/constants";
 
 function LoginPage() {
   const [name, setName] = useState('');
@@ -14,11 +15,11 @@ function LoginPage() {
   }
 
   function onRegister() {
-    navigate('/register');
+    navigate(ROUTES.REGISTER);
   }
 
   function onForgotPassword() {
-    navigate('/forgot-password')
+    navigate(ROUTES.FORGOT_PASSWORD)
   }
 
   return (

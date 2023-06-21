@@ -3,6 +3,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {resetPasswordApi} from "../../api/burger-api";
+import {ROUTES} from "../../utils/constants";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ function ForgotPassword() {
       const result = await resetPasswordApi(email);
       setIsLoading(false);
       if (result.success) {
-        navigate('/reset-password');
+        navigate(ROUTES.RESET_PASSWORD);
       }
     } catch {
       setIsLoading(false);
@@ -27,7 +28,7 @@ function ForgotPassword() {
   }
 
   function onLogin() {
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }
 
   return (

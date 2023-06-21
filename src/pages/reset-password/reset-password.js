@@ -3,6 +3,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {confirmResetPasswordApi} from "../../api/burger-api";
+import {ROUTES} from "../../utils/constants";
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -28,7 +29,7 @@ function ResetPassword() {
   }
 
   function onLogin() {
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   }
 
   return (
