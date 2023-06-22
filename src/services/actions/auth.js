@@ -7,14 +7,18 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const SET_USER = 'SET_USER';
 
 export function login({email, password}) {
   return async function(dispatch) {
     dispatch({type: LOGIN_REQUEST});
 
     try {
-      await loginApi({email, password});
-      dispatch({type: LOGIN_SUCCESS});
+      const result = await loginApi({email, password});
+      const {user, accessToken, refreshToken} = result;
+      storage.set('accessToken', accessToken);
+      storage.set('refreshToken', refreshToken);
+      dispatch({type: LOGIN_SUCCESS, user});
     } catch (e) {
       dispatch({type: LOGIN_ERROR, message: e.message});
     }

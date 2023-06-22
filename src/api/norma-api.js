@@ -1,9 +1,20 @@
 import {checkResponse} from "../utils/utils";
+import storage from "../utils/storage";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
 export function fetchIngredientsApi() {
   return fetch(`${NORMA_API}/ingredients`)
+    .then(checkResponse)
+}
+
+function getWithAuth(url) {
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': storage.get('accessToken'),
+    }
+  })
     .then(checkResponse)
 }
 
@@ -38,4 +49,8 @@ export function loginApi({email, password}) {
 
 export function registerApi({name, email, password}) {
   return post(`${NORMA_API}/auth/register`, {name, email, password});
+}
+
+export function getUserApi() {
+  return getWithAuth(`${NORMA_API}/auth/user`);
 }

@@ -1,17 +1,43 @@
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {getUserApi} from "../../../api/norma-api";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_USER} from "../../../services/actions/auth";
 
 function ProfileOverview() {
-  const [name, setName] = useState('Марк');
-  const [login, setLogin] = useState('mail@stellar.burgers');
-  const [password, setPassword] = useState('123');
+  const [password, setPassword] = useState('');
+  const {user} = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+
+  function setName() {
+    console.log('todo');
+  }
+
+  function setLogin() {
+    console.log('todo');
+  }
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const result = await getUserApi();
+        dispatch({type: SET_USER, user: result.user});
+      } catch(e) {
+        console.log('error', e);
+      }
+    }
+
+    getUser();
+  }, [dispatch]);
+
+  if (!user) return null;
 
   return (
     <div>
       <Input
         type="text"
         placeholder="Имя"
-        value={name}
+        value={user.name}
         onChange={e => setName(e.target.value)}
         icon={'EditIcon'}
         disabled
@@ -19,7 +45,7 @@ function ProfileOverview() {
       <Input
         type="text"
         placeholder="Логин"
-        value={login}
+        value={user.email}
         onChange={e => setLogin(e.target.value)}
         icon={'EditIcon'}
         extraClass={'mt-6'}

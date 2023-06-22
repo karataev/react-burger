@@ -8,15 +8,20 @@ import {useDispatch, useSelector} from "react-redux";
 import Loader from "../../components/loader/loader";
 
 function LoginPage() {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const {isLoading, errorMessage} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    dispatch(login({login: name, email}));
+    try {
+      await dispatch(login({email, password}));
+      navigate(ROUTES.HOME);
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   function onRegister() {
@@ -34,16 +39,16 @@ function LoginPage() {
           <p className="text text_type_main-medium">Вход</p>
           <Input
             extraClass={`mt-6`}
-            value={name}
-            placeholder="Имя"
-            onChange={e => setName(e.target.value)}
+            value={email}
+            placeholder="E-mail"
+            onChange={e => setEmail(e.target.value)}
           />
           <Input
             extraClass={`mt-6`}
-            value={email}
-            type="email"
-            placeholder="E-mail"
-            onChange={e => setEmail(e.target.value)}
+            value={password}
+            type="password"
+            placeholder="Пароль"
+            onChange={e => setPassword(e.target.value)}
           />
           {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
           <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>

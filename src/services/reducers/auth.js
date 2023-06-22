@@ -4,7 +4,7 @@ import {
   LOGIN_SUCCESS,
   REGISTER_ERROR,
   REGISTER_REQUEST,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS, SET_USER
 } from "../actions/auth";
 
 const initialState = {
@@ -26,7 +26,7 @@ export function authReducer(state = initialState, action) {
     return {
       ...state,
       isLoading: false,
-      // todo
+      user: action.user,
     }
   }
   case LOGIN_ERROR: {
@@ -55,6 +55,12 @@ export function authReducer(state = initialState, action) {
       ...state,
       isLoading: false,
       errorMessage: action.message,
+    }
+  }
+  case SET_USER: {
+    return {
+      ...state,
+      user: action.user,
     }
   }
   default: {
