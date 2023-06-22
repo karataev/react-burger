@@ -54,3 +54,10 @@ export function registerApi({name, email, password}) {
 export function getUserApi() {
   return getWithAuth(`${NORMA_API}/auth/user`);
 }
+
+export function logoutApi() {
+  return post(`${NORMA_API}/auth/logout`, {
+    token: storage.get('refreshToken'),
+  });
+}
+

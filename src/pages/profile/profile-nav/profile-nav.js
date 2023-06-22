@@ -1,11 +1,16 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../utils/constants";
 import styles from "../profile-page.module.css";
+import {logoutApi} from "../../../api/norma-api";
+import storage from "../../../utils/storage";
 
 function ProfileNav() {
+  const navigate = useNavigate();
 
-  function onLogout() {
-    console.log('todo logout');
+  async function onLogout() {
+    await logoutApi();
+    navigate(ROUTES.HOME);
+    storage.clear();
   }
 
   return (
