@@ -1,4 +1,5 @@
 import {loginApi, registerApi} from "../../api/norma-api";
+import storage from "../../utils/storage";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -25,8 +26,11 @@ export function register({name, email, password}) {
     dispatch({type: LOGIN_REQUEST});
 
     try {
-      await registerApi({name, email, password});
-      dispatch({type: REGISTER_SUCCESS});
+      const result = await registerApi({name, email, password});
+      const {user, accessToken, refreshToken} = result;
+      storage.set('accessToken', accessToken);
+      storage.set('refreshToken', refreshToken);
+      dispatch({type: REGISTER_SUCCESS, user});
     } catch (e) {
       dispatch({type: REGISTER_ERROR, message: e.message});
     }

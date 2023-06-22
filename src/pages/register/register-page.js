@@ -21,9 +21,10 @@ function RegisterPage() {
     setPasswordView(view)
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    dispatch(register({name, email, password}));
+    await dispatch(register({name, email, password}));
+    navigate(ROUTES.HOME);
   }
 
   function onLogin() {

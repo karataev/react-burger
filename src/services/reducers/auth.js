@@ -10,6 +10,7 @@ import {
 const initialState = {
   isLoading: false,
   errorMessage: '',
+  user: null, // {name: 'foo', email: 'foo@bar.baz' }
 };
 
 export function authReducer(state = initialState, action) {
@@ -46,7 +47,7 @@ export function authReducer(state = initialState, action) {
     return {
       ...state,
       isLoading: false,
-      // todo
+      user: action.user,
     }
   }
   case REGISTER_ERROR: {
