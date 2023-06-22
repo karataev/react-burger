@@ -3,14 +3,18 @@ import {ROUTES} from "../../../utils/constants";
 import styles from "../profile-page.module.css";
 import {logoutApi} from "../../../api/norma-api";
 import storage from "../../../utils/storage";
+import {useDispatch} from "react-redux";
+import {SET_USER} from "../../../services/actions/auth";
 
 function ProfileNav() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function onLogout() {
     await logoutApi();
-    navigate(ROUTES.HOME);
+    dispatch({type: SET_USER, user: null});
     storage.clear();
+    navigate(ROUTES.HOME);
   }
 
   return (

@@ -15,6 +15,7 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import {ROUTES} from "../../utils/constants";
 import OrdersPage from "../../pages/orders/orders-page";
 import ProfileOverview from "../../pages/profile/profile-overview/profile-overview";
+import ProtectedRouteElement from "../protected-route-element/protected-route-element";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +36,11 @@ function App() {
             <AppHeader />
             <Routes>
               <Route path={ROUTES.HOME} element={<HomePage />} />
-              <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
-                <Route index element={<ProfileOverview />} />
-                <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
+              <Route element={<ProtectedRouteElement />}>
+                <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
+                  <Route index element={<ProfileOverview />} />
+                  <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
+                </Route>
               </Route>
               <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
               <Route path={ROUTES.LOGIN} element={<LoginPage />} />
