@@ -1,13 +1,10 @@
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useState} from "react";
-import {getUserApi} from "../../../api/norma-api";
-import {useDispatch, useSelector} from "react-redux";
-import {SET_USER} from "../../../services/actions/auth";
+import {useState} from "react";
+import {useSelector} from "react-redux";
 
 function ProfileOverview() {
   const [password, setPassword] = useState('');
   const {user} = useSelector(store => store.auth);
-  const dispatch = useDispatch();
 
   function setName() {
     console.log('todo');
@@ -16,19 +13,6 @@ function ProfileOverview() {
   function setLogin() {
     console.log('todo');
   }
-
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const result = await getUserApi();
-        dispatch({type: SET_USER, user: result.user});
-      } catch(e) {
-        console.log('error', e);
-      }
-    }
-
-    getUser();
-  }, [dispatch]);
 
   if (!user) return null;
 

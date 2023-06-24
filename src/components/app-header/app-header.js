@@ -33,7 +33,7 @@ function AppHeader() {
         <Logo />
       </div>
       <div className={`${styles.col} ${styles.col_right}`}>
-        <NavItem to={ROUTES.PROFILE} title="Личный кабинет" icon="profile" />
+        <NavItem to={ROUTES.PROFILE_OVERVIEW} title="Личный кабинет" icon="profile" />
       </div>
     </header>
   )

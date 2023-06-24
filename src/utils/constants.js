@@ -5,8 +5,8 @@ export const GROUP_FILLINGS = 'GROUP_FILLINGS';
 
 export const ROUTES = {
   HOME: '/',
-  PROFILE: '/profile',
-  ORDERS: 'orders',
+  PROFILE_OVERVIEW: '/profile',
+  PROFILE_ORDERS: '/profile/orders',
   REGISTER: '/register',
   LOGIN: '/login',
   FORGOT_PASSWORD: '/forgot-password',

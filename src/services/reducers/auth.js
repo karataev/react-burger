@@ -4,13 +4,16 @@ import {
   LOGIN_SUCCESS,
   REGISTER_ERROR,
   REGISTER_REQUEST,
-  REGISTER_SUCCESS, SET_USER
+  REGISTER_SUCCESS,
+  SET_USER,
+  SET_AUTH_CHECKED,
 } from "../actions/auth";
 
 const initialState = {
   isLoading: false,
   errorMessage: '',
   user: null, // {name: 'foo', email: 'foo@bar.baz' }
+  isAuthChecked: false,
 };
 
 export function authReducer(state = initialState, action) {
@@ -61,6 +64,12 @@ export function authReducer(state = initialState, action) {
     return {
       ...state,
       user: action.user,
+    }
+  }
+  case SET_AUTH_CHECKED: {
+    return {
+      ...state,
+      isAuthChecked: action.payload,
     }
   }
   default: {

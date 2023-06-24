@@ -1,6 +1,6 @@
 import HomePage from "../../pages/home/home-page";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import ProfilePage from "../../pages/profile/profile-page";
+import {Routes, Route} from "react-router-dom";
+import ProfileOverviewPage from "../../pages/profile/profile-overview-page";
 import styles from './app.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
@@ -13,9 +13,9 @@ import AppHeader from "../app-header/app-header";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {ROUTES} from "../../utils/constants";
-import OrdersPage from "../../pages/orders/orders-page";
-import ProfileOverview from "../../pages/profile/profile-overview/profile-overview";
-import ProtectedRouteElement from "../protected-route-element/protected-route-element";
+import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
+import {OnlyAuth} from "../protected-route/protected-route";
+import {checkUserAuth} from "../../services/actions/auth";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function App() {
   const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
 
   useEffect(() => {
+    dispatch(checkUserAuth());
     dispatch(getIngredients());
   }, [dispatch]);
 
@@ -32,23 +33,17 @@ function App() {
       {ingredientsError && <div>Произошла ошибка</div>}
       {!ingredientsLoading && !ingredientsError && (
         <>
-          <BrowserRouter>
-            <AppHeader />
-            <Routes>
-              <Route path={ROUTES.HOME} element={<HomePage />} />
-              <Route element={<ProtectedRouteElement />}>
-                <Route path={ROUTES.PROFILE} element={<ProfilePage />}>
-                  <Route index element={<ProfileOverview />} />
-                  <Route path={ROUTES.ORDERS} element={<OrdersPage />} />
-                </Route>
-              </Route>
-              <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-              <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-              <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
-              <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
-              <Route path="*" element={<NotFound404 />} />
-            </Routes>
-          </BrowserRouter>
+          <AppHeader />
+          <Routes>
+            <Route path={ROUTES.HOME} element={<HomePage />} />
+            <Route path={ROUTES.PROFILE_ORDERS} element={<OnlyAuth component={<ProfileOrdersPage />} />} />
+            <Route path={ROUTES.PROFILE_OVERVIEW} element={<OnlyAuth component={<ProfileOverviewPage />} />} />
+            <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+            <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+            <Route path="*" element={<NotFound404 />} />
+          </Routes>
         </>
       )}
     </div>

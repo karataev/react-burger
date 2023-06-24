@@ -1,14 +1,14 @@
 import styles from './profile-page.module.css';
 import ProfileNav from "./profile-nav/profile-nav";
-import {Outlet} from "react-router-dom";
+import ProfileOverview from "./profile-overview/profile-overview";
 
-function ProfilePage() {
+function ProfileOverviewPage() {
   return (
     <div className={styles.root}>
       <ProfileNav />
-      <Outlet />
+      <ProfileOverview />
     </div>
   )
 }
 
-export default ProfilePage;
+export default ProfileOverviewPage;

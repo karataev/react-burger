@@ -19,12 +19,12 @@ function ProfileNav() {
 
   return (
     <div>
-      <NavLink to={ROUTES.PROFILE} className={styles.link} end>
+      <NavLink to={ROUTES.PROFILE_OVERVIEW} className={styles.link} end>
         {({isActive}) => (
           <span className={`text text_type_main-medium ${!isActive && 'text_color_inactive'}`}>Профиль</span>
         )}
       </NavLink>
-      <NavLink to={ROUTES.ORDERS} className={styles.link}>
+      <NavLink to={ROUTES.PROFILE_ORDERS} className={styles.link}>
         {({isActive}) => (
           <span className={`text text_type_main-medium ${!isActive && 'text_color_inactive'}`}>История заказов</span>
         )}
