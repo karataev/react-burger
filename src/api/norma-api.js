@@ -3,18 +3,35 @@ import storage from "../utils/storage";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
+export const refreshToken = () => {
+  return post(`${NORMA_API}/auth/token`, {
+    token: storage.get('refreshToken'),
+  });
+};
+
+export const getWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    await checkResponse(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken();
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      storage.set("refreshToken", refreshData.refreshToken);
+      storage.set("accessToken", refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return checkResponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
+
 export function fetchIngredientsApi() {
   return fetch(`${NORMA_API}/ingredients`)
-    .then(checkResponse)
-}
-
-function getWithAuth(url) {
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      'Authorization': storage.get('accessToken'),
-    }
-  })
     .then(checkResponse)
 }
 
@@ -52,7 +69,11 @@ export function registerApi({name, email, password}) {
 }
 
 export function getUserApi() {
-  return getWithAuth(`${NORMA_API}/auth/user`);
+  return getWithRefresh(`${NORMA_API}/auth/user`, {
+    headers: {
+      authorization: storage.get('accessToken')
+    }
+  });
 }
 
 export function logoutApi() {

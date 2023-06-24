@@ -14,7 +14,7 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import {ROUTES} from "../../utils/constants";
 import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
-import {OnlyAuth} from "../protected-route/protected-route";
+import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {checkUserAuth} from "../../services/actions/auth";
 
 function App() {
@@ -38,8 +38,8 @@ function App() {
             <Route path={ROUTES.HOME} element={<HomePage />} />
             <Route path={ROUTES.PROFILE_ORDERS} element={<OnlyAuth component={<ProfileOrdersPage />} />} />
             <Route path={ROUTES.PROFILE_OVERVIEW} element={<OnlyAuth component={<ProfileOverviewPage />} />} />
-            <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.REGISTER} element={<OnlyUnAuth component={<RegisterPage />} />} />
+            <Route path={ROUTES.LOGIN} element={<OnlyUnAuth component={<LoginPage />} />} />
             <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
             <Route path="*" element={<NotFound404 />} />
