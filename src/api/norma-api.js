@@ -64,7 +64,7 @@ export function resetPasswordApi(email) {
 }
 
 export function confirmResetPasswordApi({password, token}) {
-  return post(`${NORMA_API}/reset`, {password, token});
+  return post(`${NORMA_API}/password-reset/reset`, {password, token});
 }
 
 export function loginApi({email, password}) {

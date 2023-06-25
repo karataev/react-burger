@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {confirmResetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
+import Loader from "../../components/loader/loader";
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -26,7 +27,7 @@ function ResetPassword() {
       const result = await confirmResetPasswordApi({password, token: code});
       setIsLoading(false);
       if (result.success) {
-        // todo navigate
+        navigate(ROUTES.LOGIN);
       }
     } catch {
       setIsLoading(false);
@@ -63,7 +64,7 @@ function ResetPassword() {
             onChange={e => setCode(e.target.value)}
           />
           <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>
-            Восстановить
+            {isLoading ? <Loader /> : 'Восстановить'}
           </Button>
         </form>
         {error && (

@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {resetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
+import Loader from "../../components/loader/loader";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -51,7 +52,7 @@ function ForgotPassword() {
             onChange={e => setEmail(e.target.value)}
           />
           <Button htmlType="submit" type="primary" size="large" extraClass={`mt-6`} disabled={isLoading}>
-            Восстановить
+            {isLoading ? <Loader /> : 'Восстановить'}
           </Button>
         </form>
         {error && (
