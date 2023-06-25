@@ -9,7 +9,7 @@ export const refreshToken = () => {
   });
 };
 
-export const getWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
@@ -47,9 +47,16 @@ function post(url, body) {
 }
 
 export function createOrderApi(ids) {
-  return post(`${NORMA_API}/orders`, {
-    ingredients: ids,
-  });
+  return fetchWithRefresh(`${NORMA_API}/orders`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      authorization: storage.get('accessToken')
+    },
+    body: JSON.stringify({
+      ingredients: ids,
+    })
+  })
 }
 
 export function resetPasswordApi(email) {
@@ -69,7 +76,7 @@ export function registerApi({name, email, password}) {
 }
 
 export function getUserApi() {
-  return getWithRefresh(`${NORMA_API}/auth/user`, {
+  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
