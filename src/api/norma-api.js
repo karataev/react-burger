@@ -85,6 +85,17 @@ export function getUserApi() {
   });
 }
 
+export function updateUserApi(payload) {
+  return fetchWithRefresh(`${NORMA_API}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json",
+      authorization: storage.get('accessToken')
+    },
+    body: JSON.stringify(payload)
+  })
+}
+
 export function logoutApi() {
   return post(`${NORMA_API}/auth/logout`, {
     token: storage.get('refreshToken'),

@@ -1,39 +1,52 @@
-import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import {useSelector} from "react-redux";
+import style from './profile-overview.module.css';
+import {updateUserApi} from "../../../api/norma-api";
+import Loader from "../../../components/loader/loader";
 
 function ProfileOverview() {
-  const [password, setPassword] = useState('');
   const {user} = useSelector(store => store.auth);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  function setName() {
-    console.log('todo');
-  }
-
-  function setLogin() {
-    console.log('todo');
+  async function onSubmit(e) {
+    e.preventDefault();
+    const payload = {name, email};
+    if (password) payload.password = password;
+    try {
+      setIsLoading(true);
+      setErrorMessage('');
+      await updateUserApi(payload);
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      setErrorMessage(e.message);
+    }
+    setPassword('');
   }
 
   if (!user) return null;
 
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <Input
         type="text"
         placeholder="Имя"
-        value={user.name}
+        value={name}
         onChange={e => setName(e.target.value)}
         icon={'EditIcon'}
-        disabled
       />
       <Input
         type="text"
         placeholder="Логин"
-        value={user.email}
-        onChange={e => setLogin(e.target.value)}
+        value={email}
+        onChange={e => setEmail(e.target.value)}
         icon={'EditIcon'}
         extraClass={'mt-6'}
-        disabled
       />
       <Input
         type="password"
@@ -42,9 +55,14 @@ function ProfileOverview() {
         onChange={e => setPassword(e.target.value)}
         icon={'EditIcon'}
         extraClass={'mt-6'}
-        disabled
       />
-    </div>
+      {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
+      <p className={`mt-6 ${style.buttons}`}>
+        <Button htmlType={"submit"} type={"primary"} disabled={isLoading}>
+          {isLoading ? <Loader /> : 'Сохранить'}
+        </Button>
+      </p>
+    </form>
   )
 }
 
