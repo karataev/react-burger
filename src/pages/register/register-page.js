@@ -3,7 +3,7 @@ import {useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {register} from "../../services/actions/auth";
 import Loader from "../../components/loader/loader";
 
@@ -14,7 +14,8 @@ function RegisterPage() {
   const [passwordView, setPasswordView] = useState('password');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isLoading, errorMessage} = useSelector(store => store.auth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function onTogglePasswordView() {
     const view = passwordView === 'password' ? 'text' : 'password';
@@ -23,8 +24,16 @@ function RegisterPage() {
 
   async function onSubmit(e) {
     e.preventDefault();
-    await dispatch(register({name, email, password}));
-    navigate(ROUTES.HOME);
+    try {
+      setIsLoading(true);
+      setErrorMessage('');
+      await dispatch(register({name, email, password}));
+      setIsLoading(false);
+      navigate(ROUTES.HOME);
+    } catch (e) {
+      setIsLoading(false);
+      setErrorMessage(e.message);
+    }
   }
 
   function onLogin() {

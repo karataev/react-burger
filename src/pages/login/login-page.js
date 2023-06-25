@@ -10,17 +10,23 @@ import Loader from "../../components/loader/loader";
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {isLoading, errorMessage} = useSelector(store => store.auth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const {user} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   async function onSubmit(e) {
     e.preventDefault();
     try {
+      setIsLoading(true);
+      setErrorMessage('');
       await dispatch(login({email, password}));
-      navigate(ROUTES.HOME);
+      setIsLoading(false);
+      if (user) navigate(ROUTES.HOME);
     } catch(e) {
-      console.log(e);
+      setIsLoading(false);
+      setErrorMessage(e.message);
     }
   }
 
