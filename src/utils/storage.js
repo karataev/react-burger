@@ -1,14 +1,26 @@
 
 function set(key, value) {
-  localStorage.setItem(key, value);
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function get(key) {
-  return localStorage.getItem(key);
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function clear() {
-  localStorage.clear();
+  try {
+    localStorage.clear();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 const storage = {
