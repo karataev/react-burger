@@ -12,7 +12,7 @@ export const refreshToken = () => {
 export const getWithRefresh = async (url, options) => {
   try {
     const res = await fetch(url, options);
-    await checkResponse(res);
+    return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
@@ -70,7 +70,9 @@ export function registerApi({name, email, password}) {
 
 export function getUserApi() {
   return getWithRefresh(`${NORMA_API}/auth/user`, {
+    method: 'GET',
     headers: {
+      "Content-Type": "application/json",
       authorization: storage.get('accessToken')
     }
   });
