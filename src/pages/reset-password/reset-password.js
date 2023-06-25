@@ -1,7 +1,7 @@
 import styles from './reset-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {confirmResetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 
@@ -12,6 +12,11 @@ function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const passwordRef = useRef();
+
+  useEffect(() => {
+    passwordRef.current.focus();
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -47,6 +52,7 @@ function ResetPassword() {
             value={password}
             type="password"
             placeholder="Введите новый пароль"
+            ref={passwordRef}
             onChange={e => setPassword(e.target.value)}
           />
           <Input
@@ -61,7 +67,7 @@ function ResetPassword() {
           </Button>
         </form>
         {error && (
-          <p className={'mt-4 text text_type_main-default'}>{error}</p>
+          <p className={'mt-4 text text_type_main-default text_color_error'}>{error}</p>
         )}
         <p className={'mt-20'}>
           <span className="text text_type_main-default text_color_inactive">Вспомнили пароль?</span>

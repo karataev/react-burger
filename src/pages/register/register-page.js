@@ -1,5 +1,5 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
@@ -16,6 +16,11 @@ function RegisterPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const nameRef = useRef();
+
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
 
   function onTogglePasswordView() {
     const view = passwordView === 'password' ? 'text' : 'password';
@@ -49,6 +54,7 @@ function RegisterPage() {
             extraClass={`mt-6`}
             value={name}
             placeholder="Имя"
+            ref={nameRef}
             onChange={e => setName(e.target.value)}
           />
           <Input

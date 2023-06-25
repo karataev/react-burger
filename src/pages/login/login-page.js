@@ -1,6 +1,6 @@
 import styles from './login-page.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {login} from "../../services/actions/auth";
@@ -15,6 +15,11 @@ function LoginPage() {
   const {user} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const emailRef = useRef();
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -47,6 +52,7 @@ function LoginPage() {
             extraClass={`mt-6`}
             value={email}
             placeholder="E-mail"
+            ref={emailRef}
             onChange={e => setEmail(e.target.value)}
           />
           <Input
