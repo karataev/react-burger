@@ -1,9 +1,10 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import style from './profile-overview.module.css';
 import {updateUserApi} from "../../../api/norma-api";
 import Loader from "../../../components/loader/loader";
+import {SET_USER} from "../../../services/actions/auth";
 
 function ProfileOverview() {
   const {user} = useSelector(store => store.auth);
@@ -12,6 +13,9 @@ function ProfileOverview() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+
+  const isChanged = name !== user.name || email !== user.email || password !== '';
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -20,12 +24,19 @@ function ProfileOverview() {
     try {
       setIsLoading(true);
       setErrorMessage('');
-      await updateUserApi(payload);
+      const result = await updateUserApi(payload);
+      dispatch({type: SET_USER, user: result.user});
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
       setErrorMessage(e.message);
     }
+    setPassword('');
+  }
+
+  function onCancel() {
+    setName(user.name);
+    setEmail(user.email);
     setPassword('');
   }
 
@@ -57,11 +68,16 @@ function ProfileOverview() {
         extraClass={'mt-6'}
       />
       {errorMessage && <p className={'mt-5 text text_type_main-default text_color_error'}>{errorMessage}</p>}
-      <p className={`mt-6 ${style.buttons}`}>
-        <Button htmlType={"submit"} type={"primary"} disabled={isLoading}>
-          {isLoading ? <Loader /> : 'Сохранить'}
-        </Button>
-      </p>
+      {isChanged && (
+        <p className={`mt-6 ${style.buttons}`}>
+          <Button htmlType={"button"} type={"secondary"} onClick={onCancel}>
+            Отменить
+          </Button>
+          <Button htmlType={"submit"} type={"primary"} disabled={isLoading}>
+            {isLoading ? <Loader /> : 'Сохранить'}
+          </Button>
+        </p>
+      )}
     </form>
   )
 }
