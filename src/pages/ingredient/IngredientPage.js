@@ -8,7 +8,7 @@ function IngredientPage() {
 
   const ingredient = ingredients.find(item => item._id === id);
 
-  if (!ingredient) return <div>no with id {id}</div>
+  if (!ingredient) return <p>Ингредиент с id {id} не найден</p>
 
   return <IngredientDetails ingredient={ingredient} />
 }

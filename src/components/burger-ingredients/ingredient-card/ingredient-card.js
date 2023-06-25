@@ -24,8 +24,9 @@ function IngredientCard({item}) {
   }, [item, cartItems, cartBun]);
 
   function handleClick() {
+    dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
+    sessionStorage.setItem('use-ingredient-popup', 'true');
     navigate(`/ingredients/${item._id}`);
-    // dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
   }
 
   return (

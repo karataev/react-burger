@@ -16,7 +16,6 @@ import {ROUTES} from "../../utils/constants";
 import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {checkUserAuth} from "../../services/actions/auth";
-import IngredientPage from "../../pages/ingredient/IngredientPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ function App() {
             <Route path={ROUTES.LOGIN} element={<OnlyUnAuth component={<LoginPage />} />} />
             <Route path={ROUTES.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
-            <Route path="/ingredients/:id" element={<IngredientPage />} />
+            <Route path="/ingredients/:id" element={<HomePage />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </>
