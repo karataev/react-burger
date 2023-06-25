@@ -5,8 +5,10 @@ import {ingredientType} from "../../../utils/types";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 import {useDrag} from "react-dnd";
+import {useNavigate} from "react-router-dom";
 
 function IngredientCard({item}) {
+  const navigate = useNavigate();
   const {name, price, image} = item;
 
   const dispatch = useDispatch();
@@ -22,7 +24,8 @@ function IngredientCard({item}) {
   }, [item, cartItems, cartBun]);
 
   function handleClick() {
-    dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
+    navigate(`/ingredients/${item._id}`);
+    // dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: item});
   }
 
   return (
