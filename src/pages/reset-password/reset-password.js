@@ -1,7 +1,7 @@
 import styles from './reset-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import {confirmResetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 
@@ -11,6 +11,7 @@ function ResetPassword() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -31,6 +32,10 @@ function ResetPassword() {
   function onLogin() {
     navigate(ROUTES.LOGIN);
   }
+
+  useEffect(() => {
+    if (location.state?.pathname !== ROUTES.FORGOT_PASSWORD) navigate(ROUTES.HOME);
+  })
 
   return (
     <div className={styles.root}>

@@ -1,6 +1,6 @@
 import styles from './forgot-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {resetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
@@ -10,6 +10,7 @@ function ForgotPassword() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -19,7 +20,7 @@ function ForgotPassword() {
       const result = await resetPasswordApi(email);
       setIsLoading(false);
       if (result.success) {
-        navigate(ROUTES.RESET_PASSWORD);
+        navigate(ROUTES.RESET_PASSWORD, {state: location});
       }
     } catch {
       setIsLoading(false);

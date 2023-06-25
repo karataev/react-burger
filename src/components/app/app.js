@@ -40,8 +40,8 @@ function App() {
             <Route path={ROUTES.PROFILE_OVERVIEW} element={<OnlyAuth component={<ProfileOverviewPage />} />} />
             <Route path={ROUTES.REGISTER} element={<OnlyUnAuth component={<RegisterPage />} />} />
             <Route path={ROUTES.LOGIN} element={<OnlyUnAuth component={<LoginPage />} />} />
-            <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
-            <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
+            <Route path={ROUTES.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
+            <Route path={ROUTES.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </>
