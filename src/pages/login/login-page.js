@@ -1,11 +1,13 @@
 import styles from './login-page.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {login} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "../../components/loader/loader";
+import useAutoFocus from "../../hooks/use-auto-focus";
+
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,11 +17,7 @@ function LoginPage() {
   const {user} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const emailRef = useRef();
-
-  useEffect(() => {
-    emailRef.current.focus();
-  }, []);
+  const emailRef = useAutoFocus();
 
   async function onSubmit(e) {
     e.preventDefault();

@@ -1,10 +1,11 @@
 import styles from './reset-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {confirmResetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 import Loader from "../../components/loader/loader";
+import useAutoFocus from "../../hooks/use-auto-focus";
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -13,11 +14,7 @@ function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const passwordRef = useRef();
-
-  useEffect(() => {
-    passwordRef.current.focus();
-  }, []);
+  const passwordRef = useAutoFocus();
 
   async function onSubmit(e) {
     e.preventDefault();

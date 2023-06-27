@@ -1,10 +1,11 @@
 import styles from './forgot-password.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import {resetPasswordApi} from "../../api/norma-api";
 import {ROUTES} from "../../utils/constants";
 import Loader from "../../components/loader/loader";
+import useAutoFocus from "../../hooks/use-auto-focus";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -12,11 +13,7 @@ function ForgotPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const emailRef = useRef();
-
-  useEffect(() => {
-    emailRef.current.focus();
-  }, []);
+  const emailRef = useAutoFocus();
 
   async function onSubmit(e) {
     e.preventDefault();
