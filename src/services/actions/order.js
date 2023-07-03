@@ -1,4 +1,4 @@
-import {createOrderApi} from "../../api/burger-api";
+import {createOrderApi} from "../../api/norma-api";
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
 export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';

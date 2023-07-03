@@ -2,7 +2,7 @@ import {useCallback, useMemo, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group";
-import IngredientDetails from "./ingredient-details/ingredient-details";
+import IngredientDetailsModal from "./ingredient-details/ingredient-details-modal";
 import {useSelector} from "react-redux";
 import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
 import debounce from 'lodash.debounce';
@@ -66,7 +66,7 @@ function BurgerIngredients() {
           <IngredientGroup type={GROUP_FILLINGS} items={fillings} groupRef={fillingsRef} />
         </div>
       </section>
-      <IngredientDetails />
+      <IngredientDetailsModal />
     </>
   )}
 

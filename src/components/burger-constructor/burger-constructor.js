@@ -7,12 +7,16 @@ import {useDispatch, useSelector} from "react-redux";
 import ConstructorBun from "./constructor-card/constructor-bun";
 import {useDrop} from "react-dnd";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../services/actions/cart";
+import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../utils/constants";
 
 function BurgerConstructor() {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
   const cartItems = useSelector(store => store.cart.cartItems);
   const cartBun = useSelector(store => store.cart.cartBun);
+  const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
@@ -26,7 +30,11 @@ function BurgerConstructor() {
     }
   })
 
-  function onModalOpen() {
+  function onStartOrder() {
+    if (!user) {
+      navigate(ROUTES.LOGIN);
+      return;
+    }
     setOrderModalOpen(true);
   }
 
@@ -57,7 +65,7 @@ function BurgerConstructor() {
             type="primary"
             htmlType="button"
             size="large"
-            onClick={onModalOpen}
+            onClick={onStartOrder}
             disabled={!cartBun}
           >Оформить заказ</Button>
         </footer>
