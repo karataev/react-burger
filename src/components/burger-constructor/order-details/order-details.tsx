@@ -1,20 +1,27 @@
 import Modal from "../../modal/modal";
-import PropTypes from "prop-types";
 import doneImg from '../../../images/done.png';
 import styles from './order-details.module.css';
-import {useEffect} from "react";
+import {JSX, useEffect} from "react";
 import Loader from "../../loader/loader";
 import {useDispatch, useSelector} from "react-redux";
 import {createOrder} from "../../../services/actions/order";
+import {TIngredient} from "../../../utils/types";
 
-function OrderDetails({onClose}) {
+type TOrderDetails = {
+  onClose: () => void;
+}
+
+function OrderDetails({onClose}: TOrderDetails): JSX.Element {
   const dispatch = useDispatch();
+  // @ts-ignore
   const {cartItems, cartBun} = useSelector(store => store.cart);
+  // @ts-ignore
   const {isLoading, errorMessage, orderNumber} = useSelector(store => store.order);
 
   useEffect(() => {
-    const itemIds = cartItems.map(item => item._id);
+    const itemIds = cartItems.map((item: TIngredient) => item._id);
     const ids = [cartBun._id, ...itemIds, cartBun._id];
+    // @ts-ignore
     dispatch(createOrder(ids));
   }, [dispatch, cartItems, cartBun]);
 
@@ -43,10 +50,6 @@ function OrderDetails({onClose}) {
       </section>
     </Modal>
   )
-}
-
-OrderDetails.propTypes = {
-  onClose: PropTypes.func.isRequired,
 }
 
 export default OrderDetails;

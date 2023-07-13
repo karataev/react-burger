@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './constructor-card.module.css';
-import {ingredientType} from "../../../utils/types";
 import {useDispatch} from "react-redux";
 
 import {CART_ITEM_REMOVE, CART_ITEMS_SWAP} from "../../../services/actions/cart";
 import {useDrag, useDrop} from "react-dnd";
+import {TIngredient} from "../../../utils/types";
 
-function ConstructorCard({item}) {
+type TConstructorCardProps = {
+  item: TIngredient & {key: string};
+}
+
+// TODO duplicates
+type TDroppedItem = {
+  ingredient: TIngredient & {key: string};
+}
+
+function ConstructorCard({item}: TConstructorCardProps): JSX.Element {
   const dispatch = useDispatch();
   const [, dragRef] = useDrag({
     type: 'constructor',
@@ -16,7 +25,7 @@ function ConstructorCard({item}) {
 
   const [, dropRef] = useDrop({
     accept: 'constructor',
-    drop(droppedItem) {
+    drop(droppedItem: TDroppedItem) {
       if (droppedItem.ingredient.key === item.key) {
         return;
       }
@@ -45,10 +54,6 @@ function ConstructorCard({item}) {
       </div>
     </div>
   )
-}
-
-ConstructorCard.propTypes = {
-  item: ingredientType.isRequired,
 }
 
 export default React.memo(ConstructorCard);

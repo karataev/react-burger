@@ -19,11 +19,15 @@ import {checkUserAuth} from "../../services/actions/auth";
 
 function App() {
   const dispatch = useDispatch();
+  // @ts-ignore
   const ingredientsLoading = useSelector(store => store.ingredients.ingredientsLoading);
+  // @ts-ignore
   const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(checkUserAuth());
+    // @ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 

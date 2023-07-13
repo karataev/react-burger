@@ -1,9 +1,14 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
-import PropTypes from "prop-types";
 import styles from './constructor-card.module.css';
+import {JSX} from "react";
 
-function ConstructorBun({type}) {
+type TConstructorBunProps = {
+  type?: 'top' | 'bottom';
+}
+
+function ConstructorBun({type}: TConstructorBunProps): JSX.Element | null {
+  // @ts-ignore
   const cartBun = useSelector(store => store.cart.cartBun);
 
   if (!cartBun) return null;
@@ -20,10 +25,6 @@ function ConstructorBun({type}) {
       />
     </div>
   )
-}
-
-ConstructorBun.propTypes = {
-  type: PropTypes.string.isRequired,
 }
 
 export default ConstructorBun;
