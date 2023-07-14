@@ -1,11 +1,16 @@
 import styles from "./ingredient-group.module.css";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../../utils/types";
+import {TIngredient} from "../../../utils/types";
 import IngredientCard from "../ingredient-card/ingredient-card";
-import {useMemo} from "react";
+import {LegacyRef, useMemo} from "react";
 import {GROUP_BUNS, GROUP_SAUCES} from "../../../utils/constants";
 
-function IngredientGroup({items, type, groupRef}) {
+type TIngredientGroupProps = {
+  type: string;
+  items: TIngredient[];
+  groupRef?: LegacyRef<HTMLHeadingElement>;
+}
+
+function IngredientGroup({items, type, groupRef}: TIngredientGroupProps): JSX.Element {
   const title = useMemo(() => {
     if (type === GROUP_BUNS) return 'Булки';
     if (type === GROUP_SAUCES) return 'Соусы';
@@ -26,11 +31,6 @@ function IngredientGroup({items, type, groupRef}) {
       </ul>
     </>
   )
-}
-
-IngredientGroup.propTypes = {
-  type: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(ingredientType).isRequired,
 }
 
 export default IngredientGroup;

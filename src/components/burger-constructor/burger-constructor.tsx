@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {JSX, useMemo, useState} from "react";
 import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,18 +9,26 @@ import {useDrop} from "react-dnd";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../services/actions/cart";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
+import {TIngredient} from "../../utils/types";
 
-function BurgerConstructor() {
+type DropItem = {
+  ingredient: TIngredient;
+}
+
+function BurgerConstructor(): JSX.Element {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
+  // @ts-ignore
   const cartItems = useSelector(store => store.cart.cartItems);
+  // @ts-ignore
   const cartBun = useSelector(store => store.cart.cartBun);
+  // @ts-ignore
   const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: DropItem) {
       const ingredient = item.ingredient;
       if (ingredient.type === 'bun') {
         dispatch({type: CART_BUN_SET, bun: ingredient})
@@ -44,14 +52,14 @@ function BurgerConstructor() {
 
   const totalPrice = useMemo(() => {
     const bunPrice = cartBun ? cartBun.price * 2 : 0;
-    return bunPrice + cartItems.reduce((acc, item) => acc + item.price, 0)
+    return bunPrice + cartItems.reduce((acc: number, item: TIngredient) => acc + item.price, 0)
   }, [cartItems, cartBun]);
 
   return (
     <>
       <div className={`pl-4 pt-25 pr-4 ${styles.root}`} ref={dropRef}>
         <ConstructorBun type='top' />
-        {cartItems.map((item) => {
+        {cartItems.map((item: TIngredient) => {
           return <ConstructorCard key={item.key} item={item} />
         })}
         <ConstructorBun type='bottom' />

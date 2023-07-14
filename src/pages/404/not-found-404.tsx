@@ -1,5 +1,6 @@
+import {JSX} from "react";
 
-function NotFound404() {
+function NotFound404(): JSX.Element {
   return (
     <div>
       <h1>404</h1>

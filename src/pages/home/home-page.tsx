@@ -6,12 +6,14 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {useParams} from "react-router-dom";
 import IngredientPage from "../ingredient/IngredientPage";
 import {SET_SELECTED_INGREDIENT} from "../../services/actions/ingredients";
-import {useEffect} from "react";
+import {JSX, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {TIngredient} from "../../utils/types";
 
-function HomePage() {
+function HomePage(): JSX.Element {
   const params = useParams();
   const dispatch = useDispatch();
+  // @ts-ignore
   const {ingredients} = useSelector(store => store.ingredients);
 
   const ingredientId = params.id;
@@ -19,7 +21,7 @@ function HomePage() {
 
   useEffect(() => {
     if (ingredientId && isPopup) {
-      const ingredient = ingredients.find(item => item._id === ingredientId);
+      const ingredient = ingredients.find((item: TIngredient) => item._id === ingredientId);
       if (ingredient) dispatch({type: SET_SELECTED_INGREDIENT, selectedIngredient: ingredient});
     }
   }, [dispatch, ingredientId, ingredients, isPopup])

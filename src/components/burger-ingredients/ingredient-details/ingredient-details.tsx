@@ -1,8 +1,13 @@
 import styles from "./ingredient-details.module.css";
 import DetailItem from "./detail-item";
-import {ingredientType} from "../../../utils/types";
+import {TIngredient} from "../../../utils/types";
+import {JSX} from "react";
 
-function IngredientDetails({ingredient}) {
+type TIngredientDetailsProps = {
+  ingredient: TIngredient;
+}
+
+function IngredientDetails({ingredient}: TIngredientDetailsProps): JSX.Element {
   return (
     <section className={`mt-30 ${styles.main}`}>
       <img src={ingredient.image_large} alt={ingredient.name} />
@@ -15,10 +20,6 @@ function IngredientDetails({ingredient}) {
       </div>
     </section>
   )
-}
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientType.isRequired,
 }
 
 export default IngredientDetails;

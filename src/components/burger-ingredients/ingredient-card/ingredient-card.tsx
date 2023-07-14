@@ -1,13 +1,17 @@
-import React, {useMemo} from 'react';
+import React, {JSX, useMemo} from 'react';
 import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientType} from "../../../utils/types";
+import {TIngredient} from "../../../utils/types";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 import {useDrag} from "react-dnd";
 import {useNavigate} from "react-router-dom";
 
-function IngredientCard({item}) {
+type TIngredientCardProps = {
+  item: TIngredient;
+}
+
+function IngredientCard({item}: TIngredientCardProps): JSX.Element {
   const navigate = useNavigate();
   const {name, price, image} = item;
 
@@ -17,10 +21,11 @@ function IngredientCard({item}) {
     item: {ingredient: item},
   });
 
+  // @ts-ignore
   const {cartItems, cartBun} = useSelector(store => store.cart);
   const itemsCount = useMemo(() => {
     if (item.type === 'bun') return cartBun?._id === item._id ? 2 : 0;
-    return cartItems.filter(cartItem => cartItem._id === item._id).length;
+    return cartItems.filter((cartItem: TIngredient) => cartItem._id === item._id).length;
   }, [item, cartItems, cartBun]);
 
   function handleClick() {
@@ -44,10 +49,6 @@ function IngredientCard({item}) {
       </div>
     </div>
   )
-}
-
-IngredientCard.propTypes = {
-  item: ingredientType.isRequired,
 }
 
 export default React.memo(IngredientCard);

@@ -1,6 +1,11 @@
-import PropTypes from "prop-types";
+import {JSX} from "react";
 
-function DetailItem({title, value}) {
+type TDetailItemProps = {
+  title: string;
+  value: number;
+}
+
+function DetailItem({title, value}: TDetailItemProps): JSX.Element {
 
   return (
     <section>
@@ -8,11 +13,6 @@ function DetailItem({title, value}) {
       <p className="text text_type_digits-default text_color_inactive">{value}</p>
     </section>
   )
-}
-
-DetailItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
 }
 
 export default DetailItem;

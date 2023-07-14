@@ -8,12 +8,11 @@ import {useDrag, useDrop} from "react-dnd";
 import {TIngredient} from "../../../utils/types";
 
 type TConstructorCardProps = {
-  item: TIngredient & {key: string};
+  item: TIngredient;
 }
 
-// TODO duplicates
-type TDroppedItem = {
-  ingredient: TIngredient & {key: string};
+type TDropItem = {
+  ingredient: TIngredient;
 }
 
 function ConstructorCard({item}: TConstructorCardProps): JSX.Element {
@@ -25,7 +24,7 @@ function ConstructorCard({item}: TConstructorCardProps): JSX.Element {
 
   const [, dropRef] = useDrop({
     accept: 'constructor',
-    drop(droppedItem: TDroppedItem) {
+    drop(droppedItem: TDropItem) {
       if (droppedItem.ingredient.key === item.key) {
         return;
       }
