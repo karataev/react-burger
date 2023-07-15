@@ -9,11 +9,8 @@ import {useDrop} from "react-dnd";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../services/actions/cart";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
-import {TIngredient} from "../../utils/types";
+import {TDropItem, TIngredient} from "../../utils/types";
 
-type DropItem = {
-  ingredient: TIngredient;
-}
 
 function BurgerConstructor(): JSX.Element {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
@@ -28,7 +25,7 @@ function BurgerConstructor(): JSX.Element {
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(item: DropItem) {
+    drop(item: TDropItem) {
       const ingredient = item.ingredient;
       if (ingredient.type === 'bun') {
         dispatch({type: CART_BUN_SET, bun: ingredient})

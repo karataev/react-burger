@@ -1,6 +1,6 @@
 import {checkResponse} from "../utils/utils";
 import storage from "../utils/storage";
-import {TEmailPassword, TNameEmailPassword, TPasswordToken, TUpdateUser} from "../utils/types";
+import {TLoginUser, TRegisterUser, TResetPassword, TUpdateUser} from "../utils/types";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
@@ -68,15 +68,15 @@ export function resetPasswordApi(email: string) {
   return post(`${NORMA_API}/password-reset`, {email});
 }
 
-export function confirmResetPasswordApi({password, token}: TPasswordToken) {
+export function confirmResetPasswordApi({password, token}: TResetPassword) {
   return post(`${NORMA_API}/password-reset/reset`, {password, token});
 }
 
-export function loginApi({email, password}: TEmailPassword) {
+export function loginApi({email, password}: TLoginUser) {
   return post(`${NORMA_API}/auth/login`, {email, password});
 }
 
-export function registerApi({name, email, password}: TNameEmailPassword) {
+export function registerApi({name, email, password}: TRegisterUser) {
   return post(`${NORMA_API}/auth/register`, {name, email, password});
 }
 

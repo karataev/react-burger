@@ -5,15 +5,12 @@ import {useDispatch} from "react-redux";
 
 import {CART_ITEM_REMOVE, CART_ITEMS_SWAP} from "../../../services/actions/cart";
 import {useDrag, useDrop} from "react-dnd";
-import {TIngredient} from "../../../utils/types";
+import {TDropItem, TIngredient} from "../../../utils/types";
 
 type TConstructorCardProps = {
   item: TIngredient;
 }
 
-type TDropItem = {
-  ingredient: TIngredient;
-}
 
 function ConstructorCard({item}: TConstructorCardProps): JSX.Element {
   const dispatch = useDispatch();

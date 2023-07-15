@@ -14,6 +14,10 @@ export type TIngredient = {
   key: string;
 }
 
+export type TDropItem = {
+  ingredient: TIngredient;
+}
+
 type TName = {
   name: string;
 }
@@ -30,12 +34,11 @@ type TToken = {
   token: string;
 }
 
-export type TUpdateUser = {
-  name: string;
-  email: string;
+export type TUpdateUser = TName & TEmail & {
   password?: string;
 }
 
-export type TPasswordToken = TPassword & TToken;
-export type TEmailPassword = TEmail & TPassword;
-export type TNameEmailPassword = TName & TEmailPassword;
+export type TResetPassword = TPassword & TToken;
+export type TLoginUser = TEmail & TPassword;
+export type TRegisterUser = TName & TLoginUser;
+
