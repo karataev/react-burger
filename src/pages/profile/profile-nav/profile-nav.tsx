@@ -5,8 +5,9 @@ import {logoutApi} from "../../../api/norma-api";
 import storage from "../../../utils/storage";
 import {useDispatch} from "react-redux";
 import {SET_USER} from "../../../services/actions/auth";
+import {JSX} from "react";
 
-function ProfileNav() {
+function ProfileNav(): JSX.Element {
   const dispatch = useDispatch();
 
   async function onLogout() {

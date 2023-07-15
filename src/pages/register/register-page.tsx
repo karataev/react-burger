@@ -1,5 +1,5 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {JSX, SyntheticEvent, useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
@@ -8,11 +8,13 @@ import {register} from "../../services/actions/auth";
 import Loader from "../../components/loader/loader";
 import useAutoFocus from "../../hooks/use-auto-focus";
 
-function RegisterPage() {
+type TInputType = 'text' | 'password' | 'email';
+
+function RegisterPage(): JSX.Element {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordView, setPasswordView] = useState('password');
+  const [passwordView, setPasswordView] = useState<TInputType>('password');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -21,20 +23,21 @@ function RegisterPage() {
 
   function onTogglePasswordView() {
     const view = passwordView === 'password' ? 'text' : 'password';
-    setPasswordView(view)
+    setPasswordView(view);
   }
 
-  async function onSubmit(e) {
+  async function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
     try {
       setIsLoading(true);
       setErrorMessage('');
+      // @ts-ignore
       await dispatch(register({name, email, password}));
       setIsLoading(false);
       navigate(ROUTES.HOME);
     } catch (e) {
       setIsLoading(false);
-      setErrorMessage(e.message);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   }
 

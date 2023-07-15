@@ -1,6 +1,6 @@
 import styles from './login-page.module.css';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {JSX, SyntheticEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {login} from "../../services/actions/auth";
@@ -8,28 +8,29 @@ import {useDispatch, useSelector} from "react-redux";
 import Loader from "../../components/loader/loader";
 import useAutoFocus from "../../hooks/use-auto-focus";
 
-
-function LoginPage() {
+function LoginPage(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  // @ts-ignore
   const {user} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailRef = useAutoFocus();
 
-  async function onSubmit(e) {
+  async function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
     try {
       setIsLoading(true);
       setErrorMessage('');
+      // @ts-ignore
       await dispatch(login({email, password}));
       setIsLoading(false);
       if (user) navigate(ROUTES.HOME);
-    } catch(e) {
+    } catch(e: unknown) {
       setIsLoading(false);
-      setErrorMessage(e.message);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
   }
 

@@ -1,5 +1,6 @@
 import {checkResponse} from "../utils/utils";
 import storage from "../utils/storage";
+import {TEmailPassword, TNameEmailPassword, TPasswordToken, TUpdateUser} from "../utils/types";
 
 const NORMA_API = 'https://norma.nomoreparties.space/api';
 
@@ -9,11 +10,13 @@ export const refreshToken = () => {
   });
 };
 
-const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
   } catch (err) {
+    if (!(err instanceof Error)) return;
+
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
@@ -21,7 +24,8 @@ const fetchWithRefresh = async (url, options) => {
       }
       storage.set("refreshToken", refreshData.refreshToken);
       storage.set("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
+      const headers = options?.headers ? new Headers(options.headers) : new Headers();
+      headers.set("authorization", refreshData.accessToken);
       const res = await fetch(url, options);
       return checkResponse(res);
     } else {
@@ -35,7 +39,7 @@ export function fetchIngredientsApi() {
     .then(checkResponse)
 }
 
-function post(url, body) {
+function post(url: string, body: any) {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -46,12 +50,12 @@ function post(url, body) {
     .then(checkResponse)
 }
 
-export function createOrderApi(ids) {
+export function createOrderApi(ids: string[]) {
   return fetchWithRefresh(`${NORMA_API}/orders`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
-      authorization: storage.get('accessToken')
+      authorization: storage.get('accessToken') ?? ''
     },
     body: JSON.stringify({
       ingredients: ids,
@@ -59,19 +63,20 @@ export function createOrderApi(ids) {
   })
 }
 
-export function resetPasswordApi(email) {
+
+export function resetPasswordApi(email: string) {
   return post(`${NORMA_API}/password-reset`, {email});
 }
 
-export function confirmResetPasswordApi({password, token}) {
+export function confirmResetPasswordApi({password, token}: TPasswordToken) {
   return post(`${NORMA_API}/password-reset/reset`, {password, token});
 }
 
-export function loginApi({email, password}) {
+export function loginApi({email, password}: TEmailPassword) {
   return post(`${NORMA_API}/auth/login`, {email, password});
 }
 
-export function registerApi({name, email, password}) {
+export function registerApi({name, email, password}: TNameEmailPassword) {
   return post(`${NORMA_API}/auth/register`, {name, email, password});
 }
 
@@ -80,17 +85,17 @@ export function getUserApi() {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      authorization: storage.get('accessToken')
+      authorization: storage.get('accessToken') ?? ''
     }
   });
 }
 
-export function updateUserApi(payload) {
+export function updateUserApi(payload: TUpdateUser) {
   return fetchWithRefresh(`${NORMA_API}/auth/user`, {
     method: 'PATCH',
     headers: {
       "Content-Type": "application/json",
-      authorization: storage.get('accessToken')
+      authorization: storage.get('accessToken') ?? ''
     },
     body: JSON.stringify(payload)
   })

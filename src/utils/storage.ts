@@ -1,5 +1,5 @@
 
-function set(key, value) {
+function set(key: string, value: string) {
   try {
     localStorage.setItem(key, value);
   } catch (e) {
@@ -7,9 +7,9 @@ function set(key, value) {
   }
 }
 
-function get(key) {
+function get(key: string): string | undefined {
   try {
-    return localStorage.getItem(key);
+    return localStorage.getItem(key) ?? undefined;
   } catch (e) {
     console.log(e);
   }

@@ -1,12 +1,14 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useState} from "react";
+import {JSX, SyntheticEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import style from './profile-overview.module.css';
 import {updateUserApi} from "../../../api/norma-api";
 import Loader from "../../../components/loader/loader";
 import {SET_USER} from "../../../services/actions/auth";
+import {TUpdateUser} from "../../../utils/types";
 
-function ProfileOverview() {
+function ProfileOverview(): JSX.Element | null {
+  // @ts-ignore
   const {user} = useSelector(store => store.auth);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -17,9 +19,9 @@ function ProfileOverview() {
 
   const isChanged = name !== user.name || email !== user.email || password !== '';
 
-  async function onSubmit(e) {
+  async function onSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    const payload = {name, email};
+    const payload: TUpdateUser = {name, email};
     if (password) payload.password = password;
     try {
       setIsLoading(true);
@@ -29,7 +31,7 @@ function ProfileOverview() {
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
-      setErrorMessage(e.message);
+      if (e instanceof Error) setErrorMessage(e.message);
     }
     setPassword('');
   }
