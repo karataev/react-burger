@@ -39,7 +39,7 @@ export function fetchIngredientsApi() {
     .then(checkResponse)
 }
 
-function post(url: string, body: any) {
+function post<T>(url: string, body: T) {
   return fetch(url, {
     method: 'POST',
     headers: {
