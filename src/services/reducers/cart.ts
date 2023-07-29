@@ -1,12 +1,18 @@
 import {v4 as uuidv4} from "uuid";
-import {CART_BUN_SET, CART_ITEM_ADD, CART_ITEMS_SWAP, CART_ITEM_REMOVE} from "../actions/cart";
+import {CART_BUN_SET, CART_ITEM_ADD, CART_ITEMS_SWAP, CART_ITEM_REMOVE, TCartActions} from "../actions/cart";
+import {TIngredient} from "../../utils/types";
 
-const initialState = {
+type TCartState = {
+  cartBun: TIngredient | null;
+  cartItems: TIngredient[];
+}
+
+const initialState: TCartState = {
   cartBun: null,
   cartItems: [],
 }
 
-export function cartReducer(state = initialState, action) {
+export function cartReducer(state = initialState, action: TCartActions) {
   switch (action.type) {
   case CART_BUN_SET: {
     return {

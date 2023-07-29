@@ -5,15 +5,51 @@ import {
   GET_INGREDIENTS_SUCCESS,
   SET_SELECTED_INGREDIENT
 } from "../actions/ingredients";
+import {TIngredient} from "../../utils/types";
 
-const initialState = {
+type TIngredientsState = {
+  ingredients: TIngredient[];
+  ingredientsLoading: boolean;
+  ingredientsError: boolean;
+  selectedIngredient: TIngredient | null;
+}
+
+const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsLoading: false,
   ingredientsError: false,
   selectedIngredient: null,
 }
 
-export function ingredientsReducer(state = initialState, action) {
+type TClearSelectedIngredient = {
+  type: typeof CLEAR_SELECTED_INGREDIENT;
+}
+
+type TGetIngredientsFailed = {
+  type: typeof GET_INGREDIENTS_FAILED;
+}
+
+type TGetIngredientsRequest = {
+  type: typeof GET_INGREDIENTS_REQUEST;
+}
+
+type TGetIngredientsSuccess = {
+  type: typeof GET_INGREDIENTS_SUCCESS;
+  ingredients: TIngredient[];
+}
+
+type TSetSelectedIngredient = {
+  type: typeof SET_SELECTED_INGREDIENT;
+  selectedIngredient: TIngredient;
+}
+
+export type TIngredientsActions = TClearSelectedIngredient
+  | TGetIngredientsRequest
+  | TGetIngredientsSuccess
+  | TGetIngredientsFailed
+  | TSetSelectedIngredient;
+
+export function ingredientsReducer(state = initialState, action: TIngredientsActions) {
   switch (action.type) {
   case GET_INGREDIENTS_REQUEST: {
     return {

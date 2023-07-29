@@ -42,3 +42,6 @@ export type TResetPassword = TPassword & TToken;
 export type TLoginUser = TEmail & TPassword;
 export type TRegisterUser = TName & TLoginUser;
 
+export type TUser = {
+  todo: string;
+}
