@@ -19,7 +19,7 @@ export const store = createStore(rootReducer, enhancers);
 
 export type RootState = ReturnType<typeof store.getState>
 
-type TAppActions = TAuthActions | TCartActions | TIngredientsActions |TOrderActions;
+type TAppActions =  TAuthActions | TCartActions | TIngredientsActions |TOrderActions;
 
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
 
