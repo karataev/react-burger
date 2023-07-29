@@ -3,13 +3,12 @@ import styles from './burger-ingredients.module.css';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import IngredientDetailsModal from "./ingredient-details/ingredient-details-modal";
-import {useSelector} from "react-redux";
 import {GROUP_BUNS, GROUP_FILLINGS, GROUP_SAUCES} from "../../utils/constants";
 import debounce from 'lodash.debounce';
 import {TIngredient} from "../../utils/types";
+import {useSelector} from "../../hooks/hooks";
 
 function BurgerIngredients() {
-  // @ts-ignore
   const {ingredients} = useSelector(store => store.ingredients);
   const [currentTab, setCurrentTab] = useState(GROUP_BUNS);
 

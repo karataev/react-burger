@@ -4,16 +4,15 @@ import {JSX, SyntheticEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {login} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
 import Loader from "../../components/loader/loader";
 import useAutoFocus from "../../hooks/use-auto-focus";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 function LoginPage(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  // @ts-ignore
   const {user} = useSelector(store => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +23,6 @@ function LoginPage(): JSX.Element {
     try {
       setIsLoading(true);
       setErrorMessage('');
-      // @ts-ignore
       await dispatch(login({email, password}));
       setIsLoading(false);
       if (user) navigate(ROUTES.HOME);

@@ -3,22 +3,20 @@ import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import ConstructorBun from "./constructor-card/constructor-bun";
 import {useDrop} from "react-dnd";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../services/actions/cart";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {TDropItem, TIngredient} from "../../utils/types";
+import {useSelector} from "../../hooks/hooks";
 
 
 function BurgerConstructor(): JSX.Element {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
-  // @ts-ignore
   const cartItems = useSelector(store => store.cart.cartItems);
-  // @ts-ignore
   const cartBun = useSelector(store => store.cart.cartBun);
-  // @ts-ignore
   const user = useSelector(store => store.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();

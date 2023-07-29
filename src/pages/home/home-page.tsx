@@ -7,13 +7,13 @@ import {useParams} from "react-router-dom";
 import IngredientPage from "../ingredient/IngredientPage";
 import {SET_SELECTED_INGREDIENT} from "../../services/actions/ingredients";
 import {JSX, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {TIngredient} from "../../utils/types";
+import {useSelector} from "../../hooks/hooks";
 
 function HomePage(): JSX.Element {
   const params = useParams();
   const dispatch = useDispatch();
-  // @ts-ignore
   const {ingredients} = useSelector(store => store.ingredients);
 
   const ingredientId = params.id;

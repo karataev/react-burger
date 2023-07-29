@@ -3,10 +3,10 @@ import {JSX, SyntheticEvent, useState} from "react";
 import styles from './register-page.module.css';
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
-import {useDispatch} from "react-redux";
 import {register} from "../../services/actions/auth";
 import Loader from "../../components/loader/loader";
 import useAutoFocus from "../../hooks/use-auto-focus";
+import {useDispatch} from "../../hooks/hooks";
 
 type TInputType = 'text' | 'password' | 'email';
 
@@ -31,7 +31,6 @@ function RegisterPage(): JSX.Element {
     try {
       setIsLoading(true);
       setErrorMessage('');
-      // @ts-ignore
       await dispatch(register({name, email, password}));
       setIsLoading(false);
       navigate(ROUTES.HOME);

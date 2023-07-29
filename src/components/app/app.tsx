@@ -2,7 +2,6 @@ import HomePage from "../../pages/home/home-page";
 import {Routes, Route} from "react-router-dom";
 import ProfileOverviewPage from "../../pages/profile/profile-overview-page";
 import styles from './app.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
 import Loader from "../loader/loader";
@@ -16,18 +15,15 @@ import {ROUTES} from "../../utils/constants";
 import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {checkUserAuth} from "../../services/actions/auth";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 function App() {
-  const dispatch = useDispatch();
-  // @ts-ignore
+  const dispatch = useDispatch()
   const ingredientsLoading = useSelector(store => store.ingredients.ingredientsLoading);
-  // @ts-ignore
   const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(checkUserAuth());
-    // @ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 
