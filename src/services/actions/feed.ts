@@ -39,7 +39,9 @@ export const wsFeedOnError = () => ({
   type: WS_FEED_ON_ERROR,
 })
 
-export const wsFeedOnMessage = (orders: TOrder[]) => ({
+export const wsFeedOnMessage = ({orders, ordersToday, ordersTotal}: {orders: TOrder[], ordersToday: number, ordersTotal: number}) => ({
   type: WS_FEED_ON_MESSAGE,
   orders,
+  ordersToday,
+  ordersTotal,
 })

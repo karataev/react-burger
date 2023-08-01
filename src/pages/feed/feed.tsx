@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "../../hooks/hooks";
 import {wsFeedConnect, wsFeedDisconnect} from "../../services/actions/feed";
 import FeedOrder from "./feed-order/feed-order";
 import {TOrder} from "../../utils/types";
+import styles from './feed.module.css';
+import FeedSummary from "./feed-summary/feed-summary";
 
 function Feed(): JSX.Element {
 
@@ -18,10 +20,15 @@ function Feed(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <div>
-      {orders.map((order: TOrder) => (
-        <FeedOrder order={order} key={order._id} />
-      ))}
+    <div className={styles.root}>
+      <div className={styles.column}>
+        {orders.map((order: TOrder) => (
+          <FeedOrder order={order} key={order._id} />
+        ))}
+      </div>
+      <div className={styles.column}>
+        <FeedSummary />
+      </div>
     </div>
   )
 }

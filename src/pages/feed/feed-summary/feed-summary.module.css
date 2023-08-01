@@ -1,0 +1,14 @@
+.columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  margin-bottom: 60px;
+}
+
+.column {
+  flex: 0 0 50%;
+}
+
+.ready {
+  color: #00CCCC;
+}

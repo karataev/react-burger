@@ -47,8 +47,13 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
         socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data);
+          console.log('got', parsedData);
           const orders = parsedData.orders.slice(0, MAX_FEED_ORDERS);
-          dispatch(onMessage(orders));
+          dispatch(onMessage({
+            orders,
+            ordersToday: parsedData.totalToday,
+            ordersTotal: parsedData.total,
+          }));
         };
   
         socket.onclose = event => {

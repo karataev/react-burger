@@ -1,0 +1,8 @@
+.root {
+  display: flex;
+  gap: 60px;
+}
+
+.column {
+  flex: 0 0 50%;
+}
