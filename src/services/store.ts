@@ -5,6 +5,15 @@ import {TAuthActions} from "./actions/auth";
 import {TCartActions} from "./actions/cart";
 import {TIngredientsActions} from "./reducers/ingredients";
 import {TOrderActions} from "./reducers/order";
+import {socketMiddleware} from "./middleware/socket-middleware";
+import {
+  wsFeedConnect,
+  wsFeedConnecting,
+  wsFeedDisconnect,
+  wsFeedOnClose, wsFeedOnError, wsFeedOnMessage,
+  wsFeedOnOpen,
+  wsFeedSendMessage
+} from "./actions/feed";
 
 declare global {
   interface Window {
@@ -13,7 +22,19 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancers = composeEnhancers(applyMiddleware(thunk));
+const enhancers = composeEnhancers(
+  applyMiddleware(thunk),
+  applyMiddleware(socketMiddleware({
+    wsConnect: wsFeedConnect,
+    wsDisconnect: wsFeedDisconnect,
+    wsSendMessage: wsFeedSendMessage,
+    wsConnecting: wsFeedConnecting,
+    onOpen: wsFeedOnOpen,
+    onClose: wsFeedOnClose,
+    onError: wsFeedOnError,
+    onMessage: wsFeedOnMessage,
+  }))
+);
 
 export const store = createStore(rootReducer, enhancers);
 

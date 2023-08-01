@@ -34,7 +34,7 @@ function AppHeader(): JSX.Element {
     <header className={`pt-4 pb-4 ${styles.header}`}>
       <div className={`${styles.col} ${styles.col_left}`}>
         <NavItem to={ROUTES.HOME} title="Конструктор" icon="burger" />
-        <NavItem to="/todo" title="Лента заказов" icon="list" />
+        <NavItem to="/feed" title="Лента заказов" icon="list" />
       </div>
       <div className={styles.col}>
         <Logo />

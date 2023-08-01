@@ -16,6 +16,7 @@ import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {checkUserAuth} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "../../hooks/hooks";
+import Feed from "../../pages/feed/feed";
 
 function App() {
   const dispatch = useDispatch()
@@ -43,6 +44,7 @@ function App() {
             <Route path={ROUTES.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
             <Route path="/ingredients/:id" element={<HomePage />} />
+            <Route path={ROUTES.FEED} element={<Feed />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </>
