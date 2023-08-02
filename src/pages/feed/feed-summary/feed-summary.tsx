@@ -1,6 +1,7 @@
 import {TOrder} from "../../../utils/types";
 import {useSelector} from "../../../hooks/hooks";
 import styles from './feed-summary.module.css';
+import OrderNumbersList from "../order-numbers-list/order-numbers-list";
 
 const STATUS_DONE = 'done';
 
@@ -15,24 +16,22 @@ function FeedSummary() {
         <div className={styles.column}>
           <div className="text text_type_main-medium mb-6">Готовы:</div>
           <div className={styles.ready}>
-            {ordersDone.map((order: TOrder) => (
-              <div className="text text_type_digits-default mb-2" key={order._id}>{order.number}</div>
-            ))}
+            <OrderNumbersList orders={ordersDone} />
           </div>
         </div>
         <div className={styles.column}>
           <div className="text text_type_main-medium mb-6">В работе:</div>
-          <div>
-            {ordersInProgress.map((order: TOrder) => (
-              <div className="text text_type_digits-default mb-2" key={order._id}>{order.number}</div>
-            ))}
-          </div>
+          <OrderNumbersList orders={ordersInProgress} />
         </div>
       </div>
       <div className="text text_type_main-medium">Выполнено за все время:</div>
-      <div className="text text_type_digits-large">{ordersTotal}</div>
+      <div className="text text_type_digits-large">
+        <span className={styles.glow}>{ordersTotal}</span>
+      </div>
       <div className="text text_type_main-medium mt-15">Выполнено за сегодня:</div>
-      <div className="text text_type_digits-large">{ordersToday}</div>
+      <div className="text text_type_digits-large">
+        <span className={styles.glow}>{ordersToday}</span>
+      </div>
     </>
   )
 }
