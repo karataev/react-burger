@@ -1,10 +1,9 @@
 import {JSX} from "react";
 import {TIngredient, TOrder} from "../../../utils/types";
 import styles from './feed-order.module.css';
-import dayjs from "dayjs";
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 import {useSelector} from "../../../hooks/hooks";
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 
 type TFeedOrder = {
   order: TOrder;
@@ -21,13 +20,17 @@ function FeedOrder({order}: TFeedOrder):JSX.Element {
 
   const totalPrice = items.reduce((acc: number, item: TIngredient) => {
     return acc + item.price;
-  }, 0)
+  }, 0);
+
+  const createdAt = new Date(order.createdAt);
 
   return (
     <div className={styles.root}>
       <div className={styles.top}>
         <div className="text text_type_digits-default">#{order.number}</div>
-        <div className="text text_type_main-default text_color_inactive">{dayjs(order.createdAt).fromNow()}</div>
+        <div className="text text_type_main-default text_color_inactive">
+          <FormattedDate date={createdAt} />
+        </div>
       </div>
       <h3 className="text text_type_main-medium">{order.name}</h3>
       <div className={styles.bottom}>
