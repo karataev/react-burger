@@ -21,7 +21,7 @@ function Feed(): JSX.Element {
 
   return (
     <div className={styles.root}>
-      <div className={styles.column}>
+      <div className={`${styles.column} ${styles.left} custom-scroll`}>
         {orders.map((order: TOrder) => (
           <FeedOrder order={order} key={order._id} />
         ))}
