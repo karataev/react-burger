@@ -3,13 +3,15 @@ import {TIngredient, TOrder} from "../../../utils/types";
 import styles from './feed-order.module.css';
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 import {useSelector} from "../../../hooks/hooks";
-import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import Price from "../../../components/price/price";
 
 type TFeedOrder = {
   order: TOrder;
+  onSelect: (order: TOrder) => void;
 }
 
-function FeedOrder({order}: TFeedOrder):JSX.Element {
+function FeedOrder({order, onSelect}: TFeedOrder):JSX.Element {
 
   const {ingredients} = useSelector(store => store.ingredients);
 
@@ -25,7 +27,7 @@ function FeedOrder({order}: TFeedOrder):JSX.Element {
   const createdAt = new Date(order.createdAt);
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} onClick={() => onSelect(order)}>
       <div className={styles.top}>
         <div className="text text_type_digits-default">#{order.number}</div>
         <div className="text text_type_main-default text_color_inactive">
@@ -37,10 +39,7 @@ function FeedOrder({order}: TFeedOrder):JSX.Element {
         <div className={styles.images}>{items.map((item, index) => (
           <IngredientAvatar ingredient={item} key={index} index={index} />
         ))}</div>
-        <div className={styles.price}>
-          <span className="text text_type_digits-default">{totalPrice}</span>
-          <CurrencyIcon type="primary" />
-        </div>
+        <Price price={totalPrice} />
       </div>
     </div>
   )

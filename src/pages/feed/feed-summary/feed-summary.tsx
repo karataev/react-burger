@@ -2,13 +2,12 @@ import {TOrder} from "../../../utils/types";
 import {useSelector} from "../../../hooks/hooks";
 import styles from './feed-summary.module.css';
 import OrderNumbersList from "../order-numbers-list/order-numbers-list";
-
-const STATUS_DONE = 'done';
+import {ORDER_STATUS} from "../../../utils/constants";
 
 function FeedSummary() {
   const {orders, ordersToday, ordersTotal} = useSelector(store => store.feed);
-  const ordersDone = orders.filter((order: TOrder) => order.status === STATUS_DONE);
-  const ordersInProgress = orders.filter((order: TOrder) => order.status !== STATUS_DONE);
+  const ordersDone = orders.filter((order: TOrder) => order.status === ORDER_STATUS.DONE);
+  const ordersInProgress = orders.filter((order: TOrder) => order.status !== ORDER_STATUS.DONE);
 
   return (
     <>

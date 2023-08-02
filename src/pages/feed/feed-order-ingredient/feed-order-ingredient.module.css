@@ -1,0 +1,14 @@
+
+.root {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.price {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

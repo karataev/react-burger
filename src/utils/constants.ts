@@ -13,3 +13,7 @@ export const ROUTES = {
   RESET_PASSWORD: '/reset-password',
   FEED: '/feed',
 }
+
+export const ORDER_STATUS = {
+  DONE: 'done',
+}
