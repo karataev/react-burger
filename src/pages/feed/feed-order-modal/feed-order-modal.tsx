@@ -1,5 +1,5 @@
 import Modal from "../../../components/modal/modal";
-import {TIngredient, TOrder} from "../../../utils/types";
+import {TIngredient, TIngredientWithQuantity, TOrder} from "../../../utils/types";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "../../../hooks/hooks";
 import styles from './feed-order-modal.module.css';
@@ -11,9 +11,28 @@ type TFeedOrderModal = {
   onClose: () => void;
 }
 
+type TTable = {
+  [key: string]: number;
+}
+
 function FeedOrderModal({order, onClose}: TFeedOrderModal) {
   const {ingredients} = useSelector(store => store.ingredients);
   const createdAt = new Date(order.createdAt);
+
+  const table: TTable = {};
+  order.ingredients.forEach((ingredientId: string) => {
+    table[ingredientId] = table[ingredientId] ? table[ingredientId] + 1 : 1;
+  });
+
+  const ingredientGroups = Object.entries(table).map(([key, value]) => {
+    const ingredient = ingredients.find((item: TIngredient) => item._id === key);
+    if (!ingredient) return null;
+    return {
+      ...ingredient,
+      quantity: value,
+    }
+  })
+    .filter(Boolean) as TIngredientWithQuantity[];
 
   const items = order.ingredients.map(id => {
     return ingredients.find((item: TIngredient) => item._id === id);
@@ -28,12 +47,11 @@ function FeedOrderModal({order, onClose}: TFeedOrderModal) {
     <Modal title={`#${order.number}`} onClose={onClose}>
       <h3 className="text text_type_main-medium mt-10">{order.name}</h3>
       <div className="text text_type_main-small text_color_success mt-3">
-        {order.status === ORDER_STATUS.DONE && 'Выполнен'}
-        {order.status !== ORDER_STATUS.DONE && 'Готовится'}
+        {order.status === ORDER_STATUS.DONE ? 'Выполнен' : 'Готовится'}
       </div>
       <div className="text text_type_main-medium mt-15">Состав:</div>
       <div className={`${styles.ingredients} custom-scroll`}>
-        {items.map(item => (
+        {ingredientGroups.map((item: TIngredientWithQuantity) => (
           <FeedOrderIngredient ingredient={item} />
         ))}
       </div>

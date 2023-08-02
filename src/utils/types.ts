@@ -14,6 +14,10 @@ export type TIngredient = {
   key: string;
 }
 
+export type TIngredientWithQuantity = TIngredient & {
+  quantity: number;
+}
+
 export type TDropItem = {
   ingredient: TIngredient;
 }
