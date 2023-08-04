@@ -38,6 +38,7 @@ function App() {
           <Routes>
             <Route path={ROUTES.HOME} element={<HomePage />} />
             <Route path={ROUTES.PROFILE_ORDERS} element={<OnlyAuth component={<ProfileOrdersPage />} />} />
+            <Route path="/profile/orders/:number" element={<OnlyAuth component={<ProfileOrdersPage />} />} />
             <Route path={ROUTES.PROFILE_OVERVIEW} element={<OnlyAuth component={<ProfileOverviewPage />} />} />
             <Route path={ROUTES.REGISTER} element={<OnlyUnAuth component={<RegisterPage />} />} />
             <Route path={ROUTES.LOGIN} element={<OnlyUnAuth component={<LoginPage />} />} />

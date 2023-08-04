@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  margin-top: 120px;
+  gap: 60px;
+}
+
+.scroll {
+  height: calc(100vh - 208px);
+  overflow-y: auto;
+  flex-grow: 1;
+}
