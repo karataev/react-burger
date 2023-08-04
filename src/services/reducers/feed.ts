@@ -1,5 +1,5 @@
 import {TOrder} from "../../utils/types";
-import {WS_FEED_ON_MESSAGE} from "../actions/feed";
+import {WS_ON_MESSAGE} from "../actions/feed";
 
 type TFeedState = {
   orders: TOrder[];
@@ -15,7 +15,7 @@ const initialState: TFeedState = {
 
 export function feedReducer(state = initialState, action: any) {
   switch (action.type) {
-  case WS_FEED_ON_MESSAGE: {
+  case WS_ON_MESSAGE: {
     return {
       ...state,
       orders: action.orders,

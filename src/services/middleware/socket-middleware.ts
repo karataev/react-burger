@@ -1,6 +1,6 @@
 import { Middleware } from 'redux';
 import {RootState} from '../store';
-import {WS_FEED_CONNECT, WS_FEED_DISCONNECT, WS_FEED_SEND_MESSAGE} from "../actions/feed";
+import {WS_CONNECT, WS_DISCONNECT, WS_SEND_MESSAGE} from "../actions/feed";
 
 export type TwsActionTypes = {
     wsConnect: any,
@@ -27,7 +27,7 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
       const { wsConnect, wsSendMessage, onOpen,
         onClose, onError, onMessage, wsConnecting } = wsActions;
 
-      if (action.type === WS_FEED_CONNECT) {
+      if (action.type === WS_CONNECT) {
         console.log('connect')
         url = action.payload;
         socket = new WebSocket(url);
@@ -40,7 +40,7 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
           dispatch(onOpen());
         };
   
-        socket.onerror = err  => {
+        socket.onerror = ()  => {
         };
   
         socket.onmessage = event => {
@@ -71,12 +71,12 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
 
         };
   
-        if (wsSendMessage && action.type === WS_FEED_SEND_MESSAGE) {
+        if (wsSendMessage && action.type === WS_SEND_MESSAGE) {
           console.log('send')
           socket.send(JSON.stringify(action.payload));
         }
 
-        if (action.type === WS_FEED_DISCONNECT) {
+        if (action.type === WS_DISCONNECT) {
           console.log('disconnect')
           clearTimeout(reconnectTimer)
           isConnected = false;
