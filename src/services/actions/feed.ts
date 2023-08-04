@@ -35,8 +35,9 @@ export const wsFeedOnClose = () => ({
   type: WS_ON_CLOSE,
 })
 
-export const wsFeedOnError = () => ({
+export const wsFeedOnError = (message: string) => ({
   type: WS_ON_ERROR,
+  message,
 })
 
 export const wsFeedOnMessage = ({orders, ordersToday, ordersTotal}: {orders: TOrder[], ordersToday: number, ordersTotal: number}) => ({

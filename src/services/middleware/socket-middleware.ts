@@ -1,21 +1,15 @@
 import { Middleware } from 'redux';
 import {RootState} from '../store';
-import {WS_CONNECT, WS_DISCONNECT, WS_SEND_MESSAGE} from "../actions/feed";
-
-export type TwsActionTypes = {
-    wsConnect: any,
-    wsDisconnect: any,
-    wsSendMessage?: any,
-    wsConnecting: any,
-    onOpen: any,
-    onClose: any,
-    onError: any,
-    onMessage: any,
-}
+import {
+  WS_CONNECT,
+  WS_DISCONNECT,
+  wsFeedConnect,
+  wsFeedConnecting, wsFeedOnClose, wsFeedOnError, wsFeedOnMessage, wsFeedOnOpen,
+} from "../actions/feed";
 
 const MAX_FEED_ORDERS = 20;
 
-export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{}, RootState> => {
+export const socketMiddleware: any = (): Middleware<{}, RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
     let isConnected = false;
@@ -24,20 +18,18 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
 
     return next => action => {
       const { dispatch } = store;
-      const { wsConnect, wsSendMessage, onOpen,
-        onClose, onError, onMessage, wsConnecting } = wsActions;
 
       if (action.type === WS_CONNECT) {
         console.log('connect')
         url = action.payload;
         socket = new WebSocket(url);
         isConnected = true;
-        dispatch(wsConnecting());
+        dispatch(wsFeedConnecting());
       }
 
       if (socket) {
         socket.onopen = () => {
-          dispatch(onOpen());
+          dispatch(wsFeedOnOpen());
         };
   
         socket.onerror = ()  => {
@@ -47,7 +39,7 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
           const { data } = event;
           const parsedData = JSON.parse(data);
           const orders = parsedData.orders.slice(0, MAX_FEED_ORDERS);
-          dispatch(onMessage({
+          dispatch(wsFeedOnMessage({
             orders,
             ordersToday: parsedData.totalToday,
             ordersTotal: parsedData.total,
@@ -57,32 +49,27 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
         socket.onclose = event => {
           if (event.code !== 1000) {
             console.log('error')
-            dispatch(onError(event.code.toString()));
+            dispatch(wsFeedOnError(event.code.toString()));
           }
           console.log('close')
-          dispatch(onClose());
+          dispatch(wsFeedOnClose());
 
           if (isConnected) {
-            dispatch(wsConnecting());
+            dispatch(wsFeedConnecting());
             reconnectTimer = window.setTimeout(() => {
-              dispatch(wsConnect(url));
+              dispatch(wsFeedConnect(url));
             }, 3000)
           }
 
         };
   
-        if (wsSendMessage && action.type === WS_SEND_MESSAGE) {
-          console.log('send')
-          socket.send(JSON.stringify(action.payload));
-        }
-
         if (action.type === WS_DISCONNECT) {
           console.log('disconnect')
           clearTimeout(reconnectTimer)
           isConnected = false;
           reconnectTimer = 0;
           socket.close();
-          dispatch(onClose());
+          dispatch(wsFeedOnClose());
         }
       }
   
