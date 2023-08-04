@@ -41,13 +41,11 @@ export const socketMiddleware: any = (wsActions: TwsActionTypes): Middleware<{},
         };
   
         socket.onerror = err  => {
-          console.log('error')
         };
   
         socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          console.log('got', parsedData);
           const orders = parsedData.orders.slice(0, MAX_FEED_ORDERS);
           dispatch(onMessage({
             orders,

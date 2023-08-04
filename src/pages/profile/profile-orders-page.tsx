@@ -9,17 +9,23 @@ import FeedOrderModal from "../feed/feed-order-modal/feed-order-modal";
 import {useNavigate, useParams} from "react-router-dom";
 import ProfileOrderPage from "../profile-order/profile-order-page";
 import {ROUTES} from "../../utils/constants";
+import storage from "../../utils/storage";
 
 function ProfileOrdersPage(): JSX.Element {
   const dispatch = useDispatch();
   const {orders} = useSelector(store => store.feed);
+  const reversedOrders = [...orders].reverse();
   const [selectedOrder, setSelectedOrder] = useState<TOrder | null>(null);
   const navigate = useNavigate();
   const params = useParams();
   const orderNumber = Number(params.number);
 
   useEffect(() => {
-    dispatch(wsFeedConnect('wss://norma.nomoreparties.space/orders/all'));
+    const tokenWithBearer = storage.get('accessToken');
+    if (tokenWithBearer) {
+      const token = tokenWithBearer.split('Bearer ')[1];
+      dispatch(wsFeedConnect(`wss://norma.nomoreparties.space/orders?token=${token}`));
+    }
 
     return function() {
       dispatch(wsFeedDisconnect());
@@ -44,7 +50,7 @@ function ProfileOrdersPage(): JSX.Element {
     <div className={styles.root}>
       <ProfileNav />
       <div className={`${styles.scroll} custom-scroll`}>
-        {orders.map((order: TOrder) => (
+        {reversedOrders.map((order: TOrder) => (
           <FeedOrder order={order} key={order._id} onSelect={onSelect} />
         ))}
       </div>

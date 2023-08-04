@@ -10,7 +10,9 @@ import {
   wsFeedConnect,
   wsFeedConnecting,
   wsFeedDisconnect,
-  wsFeedOnClose, wsFeedOnError, wsFeedOnMessage,
+  wsFeedOnClose,
+  wsFeedOnError,
+  wsFeedOnMessage,
   wsFeedOnOpen,
   wsFeedSendMessage
 } from "./actions/feed";
