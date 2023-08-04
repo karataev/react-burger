@@ -107,3 +107,7 @@ export function logoutApi() {
   });
 }
 
+export function fetchOrderApi(number: number) {
+  return fetch(`${NORMA_API}/orders/${number}`)
+    .then(checkResponse)
+}
