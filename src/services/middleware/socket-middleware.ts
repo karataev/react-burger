@@ -1,15 +1,17 @@
 import { Middleware } from 'redux';
-import {RootState} from '../store';
 import {
   WS_CONNECT,
   WS_DISCONNECT,
   wsFeedConnect,
-  wsFeedConnecting, wsFeedOnClose, wsFeedOnError, wsFeedOnMessage, wsFeedOnOpen,
+  wsFeedOnClose,
+  wsFeedOnError,
+  wsFeedOnMessage,
+  wsFeedOnOpen,
 } from "../actions/feed";
 
 const MAX_FEED_ORDERS = 20;
 
-export const socketMiddleware: any = (): Middleware<{}, RootState> => {
+export const socketMiddleware = (): Middleware => {
   return (store) => {
     let socket: WebSocket | null = null;
     let isConnected = false;
@@ -24,7 +26,6 @@ export const socketMiddleware: any = (): Middleware<{}, RootState> => {
         url = action.payload;
         socket = new WebSocket(url);
         isConnected = true;
-        dispatch(wsFeedConnecting());
       }
 
       if (socket) {
@@ -55,7 +56,6 @@ export const socketMiddleware: any = (): Middleware<{}, RootState> => {
           dispatch(wsFeedOnClose());
 
           if (isConnected) {
-            dispatch(wsFeedConnecting());
             reconnectTimer = window.setTimeout(() => {
               dispatch(wsFeedConnect(url));
             }, 3000)
