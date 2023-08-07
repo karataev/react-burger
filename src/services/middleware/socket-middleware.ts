@@ -48,11 +48,11 @@ export const socketMiddleware = (): Middleware => {
         };
   
         socket.onclose = event => {
-          if (event.code !== 1000) {
+          if (event.code !== 1000 && event.code !== 1005) {
             console.log('error')
             dispatch(wsFeedOnError(event.code.toString()));
           }
-          console.log('close')
+          console.log('close');
           dispatch(wsFeedOnClose());
 
           if (isConnected) {
@@ -64,8 +64,8 @@ export const socketMiddleware = (): Middleware => {
         };
   
         if (action.type === WS_DISCONNECT) {
-          console.log('disconnect')
-          clearTimeout(reconnectTimer)
+          console.log('disconnect');
+          clearTimeout(reconnectTimer);
           isConnected = false;
           reconnectTimer = 0;
           socket.close();
