@@ -3,14 +3,13 @@ import styles from './burger-constructor.module.css';
 import ConstructorCard from "./constructor-card/constructor-card";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "./order-details/order-details";
-import {useDispatch} from "react-redux";
 import ConstructorBun from "./constructor-card/constructor-bun";
 import {useDrop} from "react-dnd";
 import {CART_BUN_SET, CART_ITEM_ADD} from "../../services/actions/cart";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/constants";
 import {TDropItem, TIngredient} from "../../utils/types";
-import {useSelector} from "../../hooks/hooks";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 
 function BurgerConstructor(): JSX.Element {

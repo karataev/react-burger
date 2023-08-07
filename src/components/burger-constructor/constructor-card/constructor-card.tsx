@@ -1,11 +1,11 @@
 import React, {JSX} from 'react';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './constructor-card.module.css';
-import {useDispatch} from "react-redux";
 
 import {CART_ITEM_REMOVE, CART_ITEMS_SWAP} from "../../../services/actions/cart";
 import {useDrag, useDrop} from "react-dnd";
 import {TDropItem, TIngredient} from "../../../utils/types";
+import {useDispatch} from "../../../hooks/hooks";
 
 type TConstructorCardProps = {
   item: TIngredient;

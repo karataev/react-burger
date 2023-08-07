@@ -2,11 +2,10 @@ import React, {JSX, useMemo} from 'react';
 import styles from './ingredient-card.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {TIngredient} from "../../../utils/types";
-import {useDispatch} from "react-redux";
 import {SET_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 import {useDrag} from "react-dnd";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "../../../hooks/hooks";
+import {useDispatch, useSelector} from "../../../hooks/hooks";
 
 type TIngredientCardProps = {
   item: TIngredient;

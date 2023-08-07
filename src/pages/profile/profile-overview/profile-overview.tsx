@@ -1,12 +1,11 @@
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {JSX, SyntheticEvent, useState} from "react";
-import {useDispatch} from "react-redux";
 import style from './profile-overview.module.css';
 import {updateUserApi} from "../../../api/norma-api";
 import Loader from "../../../components/loader/loader";
 import {SET_USER} from "../../../services/actions/auth";
 import {TUpdateUser, TUser} from "../../../utils/types";
-import {useSelector} from "../../../hooks/hooks";
+import {useDispatch, useSelector} from "../../../hooks/hooks";
 
 function ProfileOverview(): JSX.Element | null {
   const auth = useSelector(store => store.auth);

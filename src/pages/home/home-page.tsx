@@ -7,9 +7,8 @@ import {useParams} from "react-router-dom";
 import IngredientPage from "../ingredient/Ingredient-page";
 import {SET_SELECTED_INGREDIENT} from "../../services/actions/ingredients";
 import {JSX, useEffect} from "react";
-import {useDispatch} from "react-redux";
 import {TIngredient} from "../../utils/types";
-import {useSelector} from "../../hooks/hooks";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 function HomePage(): JSX.Element {
   const params = useParams();
