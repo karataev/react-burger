@@ -9,7 +9,8 @@ export const WS_ON_MESSAGE = 'WS_ON_MESSAGE';
 
 type TwsConnect = {
   type: typeof WS_CONNECT;
-  payload: string;
+  url: string;
+  useToken?: boolean;
 }
 
 type TwsDisconnect = {
@@ -38,9 +39,10 @@ type TwsOnMessage = {
 
 export type TwsActions = TwsConnect | TwsDisconnect | TwsOnOpen | TwsOnClose | TwsOnError | TwsOnMessage;
 
-export const wsFeedConnect = (url: string): TwsConnect => ({
+export const wsFeedConnect = ({url, useToken}: {url: string, useToken?: boolean}): TwsConnect => ({
   type: WS_CONNECT,
-  payload: url,
+  url,
+  useToken,
 })
 
 export const wsFeedDisconnect = (): TwsDisconnect => ({

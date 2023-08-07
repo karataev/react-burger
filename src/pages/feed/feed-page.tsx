@@ -18,7 +18,7 @@ function FeedPage(): JSX.Element {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(wsFeedConnect('wss://norma.nomoreparties.space/orders/all'));
+    dispatch(wsFeedConnect({url: 'wss://norma.nomoreparties.space/orders/all'}));
 
     return function() {
       dispatch(wsFeedDisconnect());

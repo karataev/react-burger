@@ -9,7 +9,6 @@ import FeedOrderModal from "../feed/feed-order-modal/feed-order-modal";
 import {useNavigate, useParams} from "react-router-dom";
 import ProfileOrderPage from "../profile-order/profile-order-page";
 import {ROUTES} from "../../utils/constants";
-import storage from "../../utils/storage";
 
 function ProfileOrdersPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -21,11 +20,7 @@ function ProfileOrdersPage(): JSX.Element {
   const orderNumber = Number(params.number);
 
   useEffect(() => {
-    const tokenWithBearer = storage.get('accessToken');
-    if (tokenWithBearer) {
-      const token = tokenWithBearer.split('Bearer ')[1];
-      dispatch(wsFeedConnect(`wss://norma.nomoreparties.space/orders?token=${token}`));
-    }
+    dispatch(wsFeedConnect({url: 'wss://norma.nomoreparties.space/orders', useToken: true}));
 
     return function() {
       dispatch(wsFeedDisconnect());
