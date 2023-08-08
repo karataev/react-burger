@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  gap: 60px;
+}
+
+.column {
+  flex: 0 0 50%;
+}
+
+.left {
+  height: calc(100vh - 88px);
+  overflow-y: auto;
+}

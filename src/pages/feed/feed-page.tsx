@@ -1,57 +1,57 @@
-import ProfileNav from "./profile-nav/profile-nav";
 import {JSX, useEffect, useState} from "react";
-import {wsFeedConnect, wsFeedDisconnect} from "../../services/actions/feed";
 import {useDispatch, useSelector} from "../../hooks/hooks";
+import {wsFeedConnect, wsFeedDisconnect} from "../../services/actions/feed";
+import FeedOrder from "./feed-order/feed-order";
 import {TOrder} from "../../utils/types";
-import FeedOrder from "../feed/feed-order/feed-order";
-import styles from './profile-orders-page.module.css';
-import FeedOrderModal from "../feed/feed-order-modal/feed-order-modal";
+import styles from './feed.module.css';
+import FeedSummary from "./feed-summary/feed-summary";
+import FeedOrderModal from "./feed-order-modal/feed-order-modal";
 import {useNavigate, useParams} from "react-router-dom";
-import ProfileOrderPage from "../profile-order/profile-order-page";
+import FeedOrderPage from "../feed-order/feed-order-page";
 import {ROUTES} from "../../utils/constants";
 
-function ProfileOrdersPage(): JSX.Element {
+function FeedPage(): JSX.Element {
   const dispatch = useDispatch();
   const {orders} = useSelector(store => store.feed);
-  const reversedOrders = [...orders].reverse();
   const [selectedOrder, setSelectedOrder] = useState<TOrder | null>(null);
   const navigate = useNavigate();
   const params = useParams();
-  const orderNumber = Number(params.number);
 
   useEffect(() => {
-    dispatch(wsFeedConnect({url: 'wss://norma.nomoreparties.space/orders', useToken: true}));
+    dispatch(wsFeedConnect({url: 'wss://norma.nomoreparties.space/orders/all'}));
 
     return function() {
       dispatch(wsFeedDisconnect());
     }
   }, [dispatch]);
 
+  if (params.number && !selectedOrder) {
+    return <FeedOrderPage />
+  }
+
   function onSelect(order: TOrder) {
     setSelectedOrder(order);
-    navigate(`/profile/orders/${order.number}`);
+    navigate(`/feed/${order.number}`);
   }
 
   function onClose() {
     setSelectedOrder(null);
-    navigate(ROUTES.PROFILE_ORDERS);
-  }
-
-  if (orderNumber && !selectedOrder) {
-    return <ProfileOrderPage />
+    navigate(ROUTES.FEED);
   }
 
   return (
     <div className={styles.root}>
-      <ProfileNav />
-      <div className={`${styles.scroll} custom-scroll`}>
-        {reversedOrders.map((order: TOrder) => (
+      <div className={`${styles.column} ${styles.left} custom-scroll`}>
+        {orders.map((order: TOrder) => (
           <FeedOrder order={order} key={order._id} onSelect={onSelect} />
         ))}
+      </div>
+      <div className={styles.column}>
+        <FeedSummary />
       </div>
       {selectedOrder && <FeedOrderModal order={selectedOrder} onClose={onClose} />}
     </div>
   )
 }
 
-export default ProfileOrdersPage;
+export default FeedPage;

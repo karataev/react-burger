@@ -1,15 +1,14 @@
 import Modal from "../../modal/modal";
-import {useDispatch, useSelector} from "react-redux";
 import {CLEAR_SELECTED_INGREDIENT} from "../../../services/actions/ingredients";
 import IngredientDetails from "./ingredient-details";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../utils/constants";
 import {JSX} from "react";
+import {useDispatch, useSelector} from "../../../hooks/hooks";
 
 function IngredientDetailsModal(): JSX.Element | null {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // @ts-ignore
   const {selectedIngredient: ingredient} = useSelector(store => store.ingredients);
 
   function onClose() {

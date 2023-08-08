@@ -2,7 +2,6 @@ import HomePage from "../../pages/home/home-page";
 import {Routes, Route} from "react-router-dom";
 import ProfileOverviewPage from "../../pages/profile/profile-overview-page";
 import styles from './app.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {getIngredients} from "../../services/actions/ingredients";
 import Loader from "../loader/loader";
@@ -16,18 +15,16 @@ import {ROUTES} from "../../utils/constants";
 import ProfileOrdersPage from "../../pages/profile/profile-orders-page";
 import {OnlyAuth, OnlyUnAuth} from "../protected-route/protected-route";
 import {checkUserAuth} from "../../services/actions/auth";
+import {useDispatch, useSelector} from "../../hooks/hooks";
+import FeedPage from "../../pages/feed/feed-page";
 
 function App() {
-  const dispatch = useDispatch();
-  // @ts-ignore
+  const dispatch = useDispatch()
   const ingredientsLoading = useSelector(store => store.ingredients.ingredientsLoading);
-  // @ts-ignore
   const ingredientsError = useSelector(store => store.ingredients.ingredientsError);
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(checkUserAuth());
-    // @ts-ignore
     dispatch(getIngredients());
   }, [dispatch]);
 
@@ -41,12 +38,15 @@ function App() {
           <Routes>
             <Route path={ROUTES.HOME} element={<HomePage />} />
             <Route path={ROUTES.PROFILE_ORDERS} element={<OnlyAuth component={<ProfileOrdersPage />} />} />
+            <Route path="/profile/orders/:number" element={<OnlyAuth component={<ProfileOrdersPage />} />} />
             <Route path={ROUTES.PROFILE_OVERVIEW} element={<OnlyAuth component={<ProfileOverviewPage />} />} />
             <Route path={ROUTES.REGISTER} element={<OnlyUnAuth component={<RegisterPage />} />} />
             <Route path={ROUTES.LOGIN} element={<OnlyUnAuth component={<LoginPage />} />} />
             <Route path={ROUTES.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
             <Route path={ROUTES.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
             <Route path="/ingredients/:id" element={<HomePage />} />
+            <Route path={ROUTES.FEED} element={<FeedPage />} />
+            <Route path="/feed/:number" element={<FeedPage />} />
             <Route path="*" element={<NotFound404 />} />
           </Routes>
         </>

@@ -1,11 +1,25 @@
 import {getUserApi, loginApi, registerApi} from "../../api/norma-api";
 import storage from "../../utils/storage";
+import {TLoginUser, TRegisterUser, TUser} from "../../utils/types";
+import {AppDispatch, AppThunk} from "../store";
 
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
 
-export function checkUserAuth() {
-  return async function(dispatch) {
+type TSetUserAction = {
+  type: typeof SET_USER;
+  user: TUser;
+}
+
+type TSetAuthChecked = {
+  type: typeof SET_AUTH_CHECKED;
+  payload: boolean;
+}
+
+export type TAuthActions = TSetUserAction | TSetAuthChecked;
+
+export const checkUserAuth: AppThunk = () => {
+  return async function(dispatch: AppDispatch) {
     if (storage.get('accessToken')) {
       try {
         const result = await getUserApi();
@@ -20,8 +34,8 @@ export function checkUserAuth() {
   }
 }
 
-export function login({email, password}) {
-  return async function(dispatch) {
+export const login: AppThunk = ({email, password}: TLoginUser) => {
+  return async function(dispatch: AppDispatch) {
     const result = await loginApi({email, password});
     const {user, accessToken, refreshToken} = result;
     storage.set('accessToken', accessToken);
@@ -30,8 +44,8 @@ export function login({email, password}) {
   }
 }
 
-export function register({name, email, password}) {
-  return async function(dispatch) {
+export const register: AppThunk = ({name, email, password}: TRegisterUser) => {
+  return async function(dispatch: AppDispatch) {
     const result = await registerApi({name, email, password});
     const {user, accessToken, refreshToken} = result;
     storage.set('accessToken', accessToken);

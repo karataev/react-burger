@@ -4,16 +4,15 @@ import styles from './home-page.module.css';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {useParams} from "react-router-dom";
-import IngredientPage from "../ingredient/IngredientPage";
+import IngredientPage from "../ingredient/Ingredient-page";
 import {SET_SELECTED_INGREDIENT} from "../../services/actions/ingredients";
 import {JSX, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {TIngredient} from "../../utils/types";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 function HomePage(): JSX.Element {
   const params = useParams();
   const dispatch = useDispatch();
-  // @ts-ignore
   const {ingredients} = useSelector(store => store.ingredients);
 
   const ingredientId = params.id;

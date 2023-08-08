@@ -3,9 +3,9 @@ import doneImg from '../../../images/done.png';
 import styles from './order-details.module.css';
 import {JSX, useEffect} from "react";
 import Loader from "../../loader/loader";
-import {useDispatch, useSelector} from "react-redux";
 import {createOrder} from "../../../services/actions/order";
 import {TIngredient} from "../../../utils/types";
+import {useDispatch, useSelector} from "../../../hooks/hooks";
 
 type TOrderDetails = {
   onClose: () => void;
@@ -13,15 +13,12 @@ type TOrderDetails = {
 
 function OrderDetails({onClose}: TOrderDetails): JSX.Element {
   const dispatch = useDispatch();
-  // @ts-ignore
   const {cartItems, cartBun} = useSelector(store => store.cart);
-  // @ts-ignore
   const {isLoading, errorMessage, orderNumber} = useSelector(store => store.order);
 
   useEffect(() => {
     const itemIds = cartItems.map((item: TIngredient) => item._id);
-    const ids = [cartBun._id, ...itemIds, cartBun._id];
-    // @ts-ignore
+    const ids = cartBun ? [cartBun._id, ...itemIds, cartBun._id] : itemIds;
     dispatch(createOrder(ids));
   }, [dispatch, cartItems, cartBun]);
 

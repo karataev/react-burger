@@ -1,14 +1,20 @@
 import {
   SET_USER,
-  SET_AUTH_CHECKED,
+  SET_AUTH_CHECKED, TAuthActions,
 } from "../actions/auth";
+import {TUser} from "../../utils/types";
 
-const initialState = {
-  user: null, // {name: 'foo', email: 'foo@bar.baz' }
+type TAuthState = {
+  user: TUser | null;
+  isAuthChecked: boolean;
+}
+
+const initialState: TAuthState = {
+  user: null,
   isAuthChecked: false,
 };
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state = initialState, action: TAuthActions) {
   switch(action.type) {
   case SET_USER: {
     return {

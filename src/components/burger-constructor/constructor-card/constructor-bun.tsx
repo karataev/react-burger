@@ -1,14 +1,13 @@
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import styles from './constructor-card.module.css';
 import {JSX} from "react";
+import {useSelector} from "../../../hooks/hooks";
 
 type TConstructorBunProps = {
   type?: 'top' | 'bottom';
 }
 
 function ConstructorBun({type}: TConstructorBunProps): JSX.Element | null {
-  // @ts-ignore
   const cartBun = useSelector(store => store.cart.cartBun);
 
   if (!cartBun) return null;
