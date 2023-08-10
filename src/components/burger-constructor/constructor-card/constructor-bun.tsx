@@ -13,7 +13,7 @@ function ConstructorBun({type}: TConstructorBunProps): JSX.Element | null {
   if (!cartBun) return null;
 
   return (
-    <div className={`mb-4 ${styles.root}`}>
+    <div className={`mb-4 ${styles.root}`} data-test={`bun-${type}`}>
       <div className={styles.left} />
       <ConstructorElement
         type={type}

@@ -34,7 +34,7 @@ function IngredientCard({item}: TIngredientCardProps): JSX.Element {
   }
 
   return (
-    <div className={`mt-6 ${styles.root}`} onClick={handleClick}>
+    <div className={`mt-6 ${styles.root}`} onClick={handleClick} data-test={item.name}>
       {itemsCount > 0 && <Counter count={itemsCount} size="default" />}
       <div ref={dragRef}>
         <img src={image} alt={name} className={styles.img} />

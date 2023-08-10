@@ -51,7 +51,7 @@ function BurgerConstructor(): JSX.Element {
 
   return (
     <>
-      <div className={`pl-4 pt-25 pr-4 ${styles.root}`} ref={dropRef}>
+      <div className={`pl-4 pt-25 pr-4 ${styles.root}`} ref={dropRef} data-test="drop-container">
         <ConstructorBun type='top' />
         {cartItems.map((item: TIngredient) => {
           return <ConstructorCard key={item.key} item={item} />
