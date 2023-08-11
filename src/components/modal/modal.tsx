@@ -29,7 +29,7 @@ function Modal({onClose, children, title = ''}: TModalProps): JSX.Element {
       <section className={styles.inner}>
         <header className={styles.header}>
           <h1 className="text text_type_main-large">{title}</h1>
-          <CloseIcon type="primary" onClick={onClose} />
+          <span data-test="close-icon"><CloseIcon type="primary" onClick={onClose} /></span>
         </header>
         {children}
       </section>

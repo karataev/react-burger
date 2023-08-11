@@ -8,7 +8,7 @@ type TModalOverlayProps = {
 function ModalOverlay({onClick}: TModalOverlayProps): JSX.Element {
 
   return (
-    <div className={styles.root} onClick={onClick}></div>
+    <div className={styles.root} onClick={onClick} data-test="modal-overlay"></div>
   )
 }
 
